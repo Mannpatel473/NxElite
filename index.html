@@ -503,10 +503,42 @@
     <h3>Message Sent Successfully!</h3>
     <p>Thank you for contacting us. We'll get back to you soon.</p>
   </div>
-</div>
+</div-->
 
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("form1");
 
+    // This container will hold dynamically added hidden inputs
+    const hiddenInputContainer = document.createElement("div");
+    hiddenInputContainer.id = "hidden-inputs";
+    form.appendChild(hiddenInputContainer);
+
+    function updateHiddenInputs() {
+        // Clear previous hidden inputs
+        hiddenInputContainer.innerHTML = "";
+
+        // Find all selected items with the class `.item.checked`
+        const checkedItems = document.querySelectorAll(".item.checked");
+
+        if (checkedItems.length > 0) {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "entry.1533864826"; // Replace with your actual Google Form entry ID
+            input.value = Array.from(checkedItems)
+                .map(item => item.getAttribute("data-value"))
+                .join(", ");
+            hiddenInputContainer.appendChild(input);
+        }
+    }
+
+    // Before form submission, update the hidden inputs
+    form.addEventListener("submit", function () {
+        updateHiddenInputs();
+    });
+});
+</script>
 
                 
                 <!--div class="contact-form-wrapper">
@@ -619,6 +651,6 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script src="main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
