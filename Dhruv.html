@@ -231,6 +231,43 @@
             .ceo-name { font-size: 2.5rem; }
             .ceo-photo { width: 250px; height: 250px; }
         }
+
+
+
+
+        @media (max-width: 768px) {
+        .nav-menu {
+            position: fixed;
+            top: 80px;
+            left: -100%;
+            width: 100%;
+            height: calc(100vh - 80px);
+            background: var(--white);
+            flex-direction: column;
+            padding: var(--spacing-md);
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+       
+        .nav-menu.active {
+            left: 0;
+        }
+       
+        .mobile-menu-toggle {
+            display: flex;
+        }
+       
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+       
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+       
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
     </style>
 </head>
 <body>
