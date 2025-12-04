@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meet the CEO of nxelite IT Solutions - Visionary Leader in Web Development, Design & IT Innovation in India">
+    <meta name="keywords" content="nxelite CEO, founder nxelite, IT leader India, web development expert, tech entrepreneur, research publications">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="About CEO - nxelite IT Solutions">
+    <meta property="og:description" content="Founder & CEO of nxelite IT Solutions | Full-Stack Developer | Researcher | Mentor">
+    <meta property="og:image" content="./header.png">
+    <meta property="og:url" content="https://www.nxelite.in/about-ceo.html">
+    <title>About CEO - nxelite IT Solutions</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #10b981;
+            --dark-bg: #0f172a;
+            --light-bg: #f8fafc;
+            --white: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --font-primary: 'Inter', sans-serif;
+            --font-heading: 'Poppins', sans-serif;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: var(--font-primary); color: var(--text-primary); line-height: 1.7; background: #fff; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-md); }
+
+        h1,h2,h3,h4 { font-family: var(--font-heading); font-weight: 700; }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+
+        /* Navbar - Same as main site */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+        .logo img { height: 50px; }
+        .nav-menu { display: flex; gap: 2rem; list-style: none; }
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+            background: var(--secondary-color); transition: var(--transition);
+        }
+        .nav-link:hover, .nav-link.active { color: var(--secondary-color); }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* CEO Hero */
+        .ceo-hero {
+            padding: var(--spacing-xl) 0 var(--spacing-lg);
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(16,185,129,0.08));
+            text-align: center;
+        }
+        .ceo-photo {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid var(--white);
+            box-shadow: var(--shadow-xl);
+            margin-bottom: var(--spacing-md);
+        }
+        .ceo-name {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        .ceo-role {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-md);
+        }
+        .ceo-bio {
+            max-width: 800px;
+            margin: 0 auto var(--spacing-lg);
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-xl) 0;
+            text-align: center;
+        }
+        .stat-item {
+            background: var(--white);
+            padding: var(--spacing-md);
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+        .stat-label { color: var(--text-secondary); }
+
+        /* Projects & Papers */
+        .projects-grid, .papers-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        .project-card, .paper-card {
+            background: var(--white);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+        .project-card:hover, .paper-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        .project-thumb {
+            height: 180px;
+            overflow: hidden;
+        }
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: var(--spacing-md);
+        }
+        .tag {
+            background: rgba(99,102,241,0.1);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+        }
+        .btn-primary:hover { transform: translateY(-3px); }
+
+        /* LinkedIn Section */
+        .linkedin-section {
+            background: var(--light-bg);
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-bg);
+            color: #94a3b8;
+            padding: var(--spacing-xl) 0 var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        .footer-bottom { text-align: center; padding-top: var(--spacing-md); border-top: 1px solid rgba(255,255,255,0.1); }
+
+        @media (max-width: 768px) {
+            .ceo-name { font-size: 2.5rem; }
+            .ceo-photo { width: 180px; height: 180px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <img src="./header.png" alt="nxelite IT Solutions Logo">
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link active">About</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#internship" class="nav-link">Internship</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CEO Hero Section -->
+    <section class="ceo-hero">
+        <div class="container">
+            <img src="Dhruv.jpeg" alt="CEO of nxelite IT Solutions" class="ceo-photo" loading="lazy">
+            <h1 class="ceo-name">Dhruv Kachhiya</h1>
+            <p class="ceo-role">Chief Executive Officer</p>
+            <p class="ceo-bio">
+                Dhruv, an IIT Bombay M.Tech graduate with 8 years of industry experience, plays a pivotal role in driving NxElite’s technical excellence and innovation. His deep expertise and strategic insight significantly strengthen the company’s vision and execution.
+            </p>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1</div>
+                <div class="stat-label">Research Papers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Students Mentored</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">8+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Projects -->
+    <section style="padding: var(--spacing-xl) 0; background: var(--light-bg);">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-thumb">
+                        <img src="OLA.jpg" alt="AI Resume Analyzer" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>Design of Type-C Power Delivery Charger from Vehicle Battery</h3>
+                        <p>• Designed a 100W Type-C Power Delivery charger, integrating a power delivery controller and a buck converter controller to ensure efficient power conversion and reliable operation. </p>
+                      
+                        <p>• Designed a Type-III compensator for optimal output voltage regulation and stability.</p>
+ 
+                        <p>• Simulated the power stage converter in closed-loop mode, using PSpice for TI to verify functionality. </p>
+
+                        <p>• Developed detailed schematic designs and PCB layouts using OrCAD Capture and Allegro PCB. </p>
+
+                        <div style="margin: 0.75rem 0;">
+                            <span class="tag">Sep 2024 – Nov 2024</span>
+                        </div>
+                        <a href="https://www.linkedin.com/in/dhruv-kachhiya-2537681b9/details/projects/" class="btn btn-primary">View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-thumb">
+                        <img src="iit-bombay.jpg" alt="DevPort - Developer Portfolio Builder" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3>Redundancy and Fault-tolerant Operation in Power Electronics Converters</h3>
+                        <p>• Investigate the feasibility of redundancy and fault-tolerant operation in power electronic converters, and propose a suitable design with redundant control to enhance drive reliability. </p>
+                        <p>• Conducted an extensive literature survey on various power electronics converter topologies used in conventional electric drives and their fault-tolerant operation. </p>
+                        <p>• Performance and reliability comparison of power electronics converters in their post-fault conditions. </p>
+                        <p>• Simulated degraded performance of active neutral point clamp (ANPC) converter in different fault conditions conditions using PLECS software with an appropriate control strategy to validate the performance. </p>
+                        <p>• Design and develop a compact ANPC converter, with digital implementation of open-circuit fault Detection and real-time fault-tolerant mode switchover control in the digital controller.</p>
+                      
+                        <div style="margin: 0.75rem 0;">
+                            <span class="tag">Jul 2023 – Jun 2024</span>
+                        </div>
+                        <a href="https://www.linkedin.com/in/dhruv-kachhiya-2537681b9/details/projects/" class="btn btn-primary">View Project</a>
+                    </div>
+                </div>
+            </div>
+          <br><br>
+            <a href="https://www.linkedin.com/in/dhruv-kachhiya-2537681b9/details/projects/" target="_blank" class="btn btn-primary">
+                <i class="fab fa-linkedin-in"></i> View More Projects
+            </a>
+        </div>
+    </section>
+
+    <!-- Research Papers -->
+    <section style="padding: var(--spacing-xl) 0;">
+        <div class="container">
+            <h2 class="section-title">Research & Publications</h2>
+            <div class="projects-grid">
+                <div class="paper-card">
+                    <div class="card-content">
+                        <h3>Open Circuit Fault-Diagnosis and Fault-Tolerant Operation of ANPC</h3>
+                        <p><strong>Published:</strong> 2024 IEEE International Communications Energy Conference (INTELEC) · Aug 5, 2024</p>
+                        <p>This paper introduces a real-time fault diagnosis and fault-tolerant method for detecting open-circuit (OC) faults in insulated-gate bipolar transistors (IGBTs) for a three-phase active neutral point clamp (3L-ANPC) converter. The strategy utilizes pole voltage as an input, and based on the deviation between the output pole voltage and the applied switching state, identifies any faulty switches. This approach is load-independent and does not require additional current information. Practical implementation of the strategy only necessitates three additional pole voltage sensors. This diagnostic method enables faster fault detection, typically within one switching cycle under favourable conditions, and can also detect multiple OC failures using the same strategy. Experimental and simulation results validate the effectiveness of the proposed method.</p>
+                        <a href="https://ieeexplore.ieee.org/document/10679019" class="btn btn-primary">IEEE Xplore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LinkedIn Section -->
+    <section class="linkedin-section">
+       
+            <div style="max-width: 400px; margin: 0 auto;">
+                <script src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="dark" data-type="HORIZONTAL" data-vanity="arjun-patel-nxelite" data-version="v1">
+                    <a class="badge-link" href="https://www.linkedin.com/in/dhruv-kachhiya-2537681b9/" target="_blank">Dhruv Kachhiya</a>
+                </div>
+            </div>
+            <br><br>
+            <a href="https://www.linkedin.com/in/dhruv-kachhiya-2537681b9/" target="_blank" class="btn btn-primary">
+                <i class="fab fa-linkedin-in"></i> Connect on LinkedIn
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <img src="./header.png" alt="nxelite Logo" style="height:50px; margin-bottom:1rem;">
+                    <p>Next-Level IT. Elite Solutions for a Smarter Tomorrow.</p>
+                </div>
+                <div>
+                    <h4 style="color:white; margin-bottom:1rem;">Quick Links</h4>
+                    <ul style="list-style:none;">
+                        <li><a href="index.html" style="color:#94a3b8; text-decoration:none;">Home</a></li>
+                        <li><a href="index.html#about" style="color:#94a3b8; text-decoration:none;">About Us</a></li>
+                        <li><a href="index.html#internship" style="color:#94a3b8; text-decoration:none;">Internship</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:white;">Contact</h4>
+                    <p style="color:#94a3b8;">+91 76009 78440<br>info@nxelite.in</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 nxelite IT Solutions. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
