@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NxElite Certificate - NX25IN25006</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Certificate - NX25IN25006</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             min-height: 100dvh;
-            background-color: #f4f4f9;
+            background: #f5f6fa;
             font-family: Arial, Helvetica, sans-serif;
             display: flex;
             justify-content: center;
@@ -24,66 +24,66 @@
         .image-container {
             position: relative;
             width: 100%;
-            max-width: 900px;
-            padding: 12px;
+            max-width: 940px;
+            padding: 10px;
         }
 
         img {
             width: 100%;
             height: auto;
             display: block;
-            border: 1px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
             user-select: none;
             -webkit-user-drag: none;
         }
 
-        /* Watermark */
+        /* Watermark - upward (rising) style */
         .watermark {
             position: absolute;
-            color: rgba(220, 20, 60, 0.18);
-            font-size: clamp(14px, 4.5vw, 28px);
+            color: rgba(200, 20, 60, 0.14);
+            font-size: clamp(16px, 5.2vw, 34px);
             font-weight: bold;
             pointer-events: none;
             white-space: nowrap;
             z-index: 5;
             transform-origin: center;
+            letter-spacing: 1.2px;
         }
 
         /* Popup */
         .popup {
             position: fixed;
             inset: 0;
+            background: rgba(0,0,0,0.68);
+            z-index: 1000;
             display: grid;
             place-items: center;
-            background: rgba(0,0,0,0.65);
-            z-index: 1000;
             padding: 15px;
             opacity: 0;
-            animation: fadeIn 0.6s forwards;
+            animation: fadeIn 0.7s forwards;
         }
 
         .popup-content {
             background: white;
             border-radius: 16px;
-            padding: 24px 18px;
-            max-width: 360px;
+            padding: 26px 20px;
+            max-width: 380px;
             width: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
             text-align: center;
         }
 
         .popup p {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             font-size: 17px;
-            color: #222;
-            line-height: 1.4;
+            color: #1c1c1e;
+            line-height: 1.45;
         }
 
         .popup button {
-            padding: 12px 32px;
-            background: #e63946;
+            padding: 12px 40px;
+            background: #dc143c;
             color: white;
             border: none;
             border-radius: 10px;
@@ -94,26 +94,18 @@
         }
 
         .popup button:hover {
-            background: #d00000;
-            transform: translateY(-1px);
+            background: #b22222;
+            transform: translateY(-2px);
         }
 
         @keyframes fadeIn {
             to { opacity: 1; }
         }
 
-        @media (max-width: 480px) {
-            .image-container {
-                padding: 8px;
-            }
-            
-            .popup-content {
-                padding: 20px 16px;
-            }
-            
-            .popup p {
-                font-size: 15.5px;
-            }
+        @media (max-width: 520px) {
+            .image-container { padding: 8px; }
+            .popup-content { padding: 22px 18px; }
+            .popup p { font-size: 15.5px; }
         }
     </style>
 </head>
@@ -123,70 +115,69 @@
     <img src="Mr_Aniketh_Certificate.png" alt="Certificate NX25IN25006" draggable="false">
 </div>
 
-<!-- Watermarks & Popup will be added via JS -->
-
 <script>
-    // ================== Watermarks ==================
-    function addWatermarks() {
-        const container = document.querySelector('.image-container');
-        const text = "Unapproved";
-        const count = window.innerWidth < 600 ? 12 : 20;
+// Watermarks - upward rising style
+function createWatermarks() {
+    const container = document.querySelector('.image-container');
+    const text = "Unapproved";
+    const count = window.innerWidth < 600 ? 10 : 18;
 
-        for(let i = 0; i < count; i++) {
-            const wm = document.createElement('div');
-            wm.className = 'watermark';
-            wm.textContent = text;
+    for(let i = 0; i < count; i++) {
+        const wm = document.createElement('div');
+        wm.className = 'watermark';
+        wm.textContent = text;
 
-            const top = Math.random() * 92 + 4;
-            const left = Math.random() * 92 + 4;
-            const rot = -35 + Math.random() * 20;
-            const opacity = 0.07 + Math.random() * 0.09;
+        const top  = Math.random() * 88 + 6;
+        const left = Math.random() * 88 + 6;
+        
+        // Upward/rising rotation (positive degrees)
+        const rotation = 28 + Math.random() * 26; // 28° → 54° — nice rising look
+        
+        const opacity = 0.07 + Math.random() * 0.09;
 
-            wm.style.top = `${top}%`;
-            wm.style.left = `${left}%`;
-            wm.style.transform = `rotate(${rot}deg)`;
-            wm.style.opacity = opacity;
+        wm.style.top      = `${top}%`;
+        wm.style.left     = `${left}%`;
+        wm.style.transform = `rotate(${rotation}deg)`;
+        wm.style.opacity   = opacity;
 
-            container.appendChild(wm);
-        }
+        container.appendChild(wm);
     }
+}
 
-    // ================== Popup ==================
-    function showPopup() {
-        const popup = document.createElement('div');
-        popup.className = 'popup';
+// Simple popup
+function showInfoPopup() {
+    const popup = document.createElement('div');
+    popup.className = 'popup';
 
-        popup.innerHTML = `
-            <div class="popup-content">
-                <p>This certificate is approved as of <strong>April 30, 2026</strong>.</p>
-                <button onclick="this.closest('.popup').remove()">Close</button>
-            </div>
-        `;
+    popup.innerHTML = `
+        <div class="popup-content">
+            <p>This certificate is approved as of <strong>April 30, 2026</strong>.</p>
+            <button onclick="this.closest('.popup').remove()">Close</button>
+        </div>
+    `;
 
-        document.body.appendChild(popup);
+    document.body.appendChild(popup);
 
-        // Auto close after 7 seconds on mobile
-        if(window.innerWidth <= 768) {
-            setTimeout(() => popup.remove(), 7000);
-        }
+    // Auto close on mobile after 6 seconds
+    if (window.innerWidth <= 768) {
+        setTimeout(() => popup.remove(), 6000);
     }
+}
 
-    // ================== Start ==================
-    window.addEventListener('load', () => {
-        addWatermarks();
-        setTimeout(showPopup, 800);
-    });
+// Start
+window.addEventListener('load', () => {
+    createWatermarks();
+    setTimeout(showInfoPopup, 900);
+});
 
-    // ================== Protection (basic) ==================
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    
-    document.addEventListener('keydown', e => {
-        // Common screenshot/dev tools attempts
-        if (e.key === 'PrintScreen' || 
-            (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u' || e.key === 'i'))) {
-            e.preventDefault();
-        }
-    });
+// Basic protection
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    if (e.key === 'PrintScreen' || 
+        (e.ctrlKey && (e.key.toLowerCase() === 'p' || e.key.toLowerCase() === 's' || e.key.toLowerCase() === 'u'))) {
+        e.preventDefault();
+    }
+});
 </script>
 </body>
 </html>
