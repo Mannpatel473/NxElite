@@ -4,42 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NxElite-Certificate</title>
+
     <style>
         body {
-            overflow: hidden;
+            margin: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             background-color: #f4f4f9;
-            margin: 0;
-            position: relative;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
         }
+
+        /* Image container */
         .image-container {
             position: relative;
-            display: inline-block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 95vw;
+            max-height: 95vh;
         }
+
+        /* Image fits screen */
+        .image-container img {
+            max-width: 100%;
+            max-height: 95vh;
+            width: auto;
+            height: auto;
+            display: block;
+            border: 1px solid #ccc;
+            z-index: 0;
+        }
+
+        /* Watermark */
         .watermark {
             position: absolute;
             font-size: 20px;
-            color: rgba(255, 0, 0, 0.2);
-            pointer-events: none;
-            transform: rotate(-30deg);
             font-weight: bold;
             white-space: nowrap;
-            z-index: 1; /* Make sure the watermark is above the image */
-        }
-        img {
-            max-width: 100%;
-            max-height: 100%;
-            border: 1px solid #ccc;
-            position: relative;
-            z-index: 0; /* Make sure the image is below the watermark */
+            pointer-events: none;
+            transform: rotate(-30deg);
+            z-index: 1;
         }
 
-        /* Popup Styles */
+        /* Popup */
         .popup {
             position: fixed;
             top: 20%;
@@ -48,7 +57,7 @@
             background: linear-gradient(145deg, #ffffff, #f0f0f0);
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             z-index: 1000;
             width: 350px;
             text-align: center;
@@ -72,8 +81,7 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
-            box-shadow: 0 4px 8px rgba(255, 123, 255, 0.3);
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
         .popup button:hover {
@@ -81,100 +89,67 @@
             transform: scale(1.05);
         }
 
-        /* Fade-in animation */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Close Button Hover Effect */
-        .popup button:focus {
-            outline: none;
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
+
     <script>
         // Disable right-click
-        document.addEventListener('contextmenu', function(event) {
-            event.preventDefault();
-        });
+        document.addEventListener('contextmenu', e => e.preventDefault());
 
-        // Disable screenshot (warning, not foolproof)
-        document.addEventListener('keydown', function(event) {
-            // Disable common screenshot keys (Ctrl+Shift+I or F12)
-            if (event.ctrlKey && (event.key === 'I' || event.key === 'i' || event.key === 'U' || event.key === 'u')) {
-                event.preventDefault();
-            }
-            // Disable F12 (DevTools) and print screen (for screenshots)
-            if (event.key === 'F12' || event.key === 'PrintScreen') {
-                event.preventDefault();
+        // Disable DevTools shortcuts (basic deterrent)
+        document.addEventListener('keydown', function (e) {
+            if (
+                e.key === 'F12' ||
+                (e.ctrlKey && ['I', 'i', 'U', 'u'].includes(e.key))
+            ) {
+                e.preventDefault();
             }
         });
 
-        // Disable dragging the image
-        window.onload = function() {
+        window.onload = function () {
             const img = document.querySelector('img');
-            if (img) {
-                img.ondragstart = function() {
-                    return false;
-                };
-            }
+            if (img) img.ondragstart = () => false;
 
-            // Dynamically add multiple watermarks
+            // Add watermarks
             const container = document.querySelector('.image-container');
             const text = "Unapproved";
-            const numWatermarks = 20; // Adjust for more/less density
+            const numWatermarks = 20;
 
             for (let i = 0; i < numWatermarks; i++) {
                 const wm = document.createElement('div');
                 wm.className = 'watermark';
                 wm.textContent = text;
 
-                // Random position within the image container
-                const top = Math.random() * 100;
-                const left = Math.random() * 100;
-
-                wm.style.top = `${top}%`;
-                wm.style.left = `${left}%`;
-
-                // Optional: slight random rotation variation
-                const rotation = -30 + (Math.random() * 20 - 10);
-                wm.style.transform = `rotate(${rotation}deg)`;
-
-                // Random opacity for subtlety
-                const opacity = 0.05 + Math.random() * 0.1;
-                wm.style.color = `rgba(255, 0, 0, ${opacity})`;
+                wm.style.top = Math.random() * 100 + "%";
+                wm.style.left = Math.random() * 100 + "%";
+                wm.style.color = `rgba(255, 0, 0, ${0.05 + Math.random() * 0.1})`;
+                wm.style.transform = `rotate(${ -30 + (Math.random() * 20 - 10) }deg)`;
 
                 container.appendChild(wm);
             }
 
-            // Show the popup after the page loads
+            // Popup
             const popup = document.createElement('div');
-            popup.classList.add('popup');
+            popup.className = 'popup';
             popup.innerHTML = `
                 <p>This certificate is approved as of April 30, 2026.</p>
                 <button onclick="closePopup()">Close</button>
             `;
             document.body.appendChild(popup);
 
-            // Automatically close the popup after 3 seconds
-            setTimeout(function() {
-                closePopup();
-            }, 8000); // 8000ms = 8 seconds
+            setTimeout(closePopup, 8000);
         };
 
-        // Function to close the popup
         function closePopup() {
             const popup = document.querySelector('.popup');
-            if (popup) {
-                popup.style.display = 'none';
-            }
+            if (popup) popup.style.display = 'none';
         }
     </script>
 </head>
+
 <body>
     <div class="image-container">
         <img src="Mr_Aniketh_Certificate.png" alt="NX25IN25006">
