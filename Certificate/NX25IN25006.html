@@ -16,6 +16,10 @@
             overflow: hidden;
             font-family: 'Arial', sans-serif;
         }
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
         .watermark {
             position: absolute;
             font-size: 20px;
@@ -24,13 +28,14 @@
             transform: rotate(-30deg);
             font-weight: bold;
             white-space: nowrap;
+            z-index: 1; /* Make sure the watermark is above the image */
         }
         img {
             max-width: 100%;
             max-height: 100%;
             border: 1px solid #ccc;
             position: relative;
-            z-index: 10;
+            z-index: 0; /* Make sure the image is below the watermark */
         }
 
         /* Popup Styles */
@@ -118,7 +123,7 @@
             }
 
             // Dynamically add multiple watermarks
-            const container = document.body;
+            const container = document.querySelector('.image-container');
             const text = "Unapproved";
             const numWatermarks = 20; // Adjust for more/less density
 
@@ -127,7 +132,7 @@
                 wm.className = 'watermark';
                 wm.textContent = text;
 
-                // Random position
+                // Random position within the image container
                 const top = Math.random() * 100;
                 const left = Math.random() * 100;
 
@@ -149,8 +154,7 @@
             const popup = document.createElement('div');
             popup.classList.add('popup');
             popup.innerHTML = `
-                <p>This certificate is approved as of April 30, 2026.
-</p>
+                <p>This certificate is approved as of April 30, 2026.</p>
                 <button onclick="closePopup()">Close</button>
             `;
             document.body.appendChild(popup);
@@ -171,6 +175,8 @@
     </script>
 </head>
 <body>
-    <img src="NX25IN25006.png" alt="NX25IN25006">
+    <div class="image-container">
+        <img src="Mr_Aniketh_Certificate.png" alt="NX25IN25006">
+    </div>
 </body>
 </html>
