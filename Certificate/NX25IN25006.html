@@ -61,7 +61,7 @@
 
             // Dynamically add multiple watermarks
             const container = document.body;
-            const text = "unapproved";
+            const text = "Unapproved";
             const numWatermarks = 20; // Adjust for more/less density
 
             for (let i = 0; i < numWatermarks; i++) {
@@ -82,7 +82,7 @@
 
                 // Random opacity for subtlety
                 const opacity = 0.05 + Math.random() * 0.1;
-                wm.style.color = `rgba(100, 100, 100, ${opacity})`;
+                wm.style.color = `rgba(255, 0, 0, ${opacity})`;
 
                 container.appendChild(wm);
             }
