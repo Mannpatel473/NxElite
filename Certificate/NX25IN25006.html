@@ -2,157 +2,191 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NxElite-Certificate</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NxElite Certificate - NX25IN25006</title>
     <style>
-        body {
+        * {
             margin: 0;
-            min-height: 100vh;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100dvh;
+            background-color: #f4f4f9;
+            font-family: Arial, Helvetica, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f4f4f9;
-            font-family: Arial, sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Image container */
         .image-container {
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            max-width: 95vw;
-            max-height: 95vh;
+            width: 100%;
+            max-width: 900px;
+            padding: 12px;
         }
 
-        /* Image fits screen */
-        .image-container img {
-            max-width: 100%;
-            max-height: 95vh;
-            width: auto;
+        img {
+            width: 100%;
             height: auto;
             display: block;
-            border: 1px solid #ccc;
-            z-index: 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         /* Watermark */
         .watermark {
             position: absolute;
-            font-size: 20px;
+            color: rgba(220, 20, 60, 0.18);
+            font-size: clamp(14px, 4.5vw, 28px);
             font-weight: bold;
-            white-space: nowrap;
             pointer-events: none;
-            transform: rotate(-30deg);
-            z-index: 1;
+            white-space: nowrap;
+            z-index: 5;
+            transform-origin: center;
         }
 
         /* Popup */
         .popup {
             position: fixed;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(145deg, #ffffff, #f0f0f0);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            inset: 0;
+            display: grid;
+            place-items: center;
+            background: rgba(0,0,0,0.65);
             z-index: 1000;
-            width: 350px;
-            text-align: center;
+            padding: 15px;
             opacity: 0;
             animation: fadeIn 0.6s forwards;
         }
 
+        .popup-content {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 18px;
+            max-width: 360px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            text-align: center;
+        }
+
         .popup p {
-            margin: 0;
-            font-size: 18px;
-            color: #333;
-            font-weight: 500;
+            margin-bottom: 20px;
+            font-size: 17px;
+            color: #222;
+            line-height: 1.4;
         }
 
         .popup button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #ff0000;
+            padding: 12px 32px;
+            background: #e63946;
             color: white;
             border: none;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 10px;
             font-size: 16px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
         }
 
         .popup button:hover {
-            background-color: #b30000;
-            transform: scale(1.05);
+            background: #d00000;
+            transform: translateY(-1px);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
             to { opacity: 1; }
         }
-    </style>
 
-    <script>
-        // Disable right-click
-        document.addEventListener('contextmenu', e => e.preventDefault());
-
-        // Disable DevTools shortcuts (basic deterrent)
-        document.addEventListener('keydown', function (e) {
-            if (
-                e.key === 'F12' ||
-                (e.ctrlKey && ['I', 'i', 'U', 'u'].includes(e.key))
-            ) {
-                e.preventDefault();
+        @media (max-width: 480px) {
+            .image-container {
+                padding: 8px;
             }
-        });
-
-        window.onload = function () {
-            const img = document.querySelector('img');
-            if (img) img.ondragstart = () => false;
-
-            // Add watermarks
-            const container = document.querySelector('.image-container');
-            const text = "Unapproved";
-            const numWatermarks = 20;
-
-            for (let i = 0; i < numWatermarks; i++) {
-                const wm = document.createElement('div');
-                wm.className = 'watermark';
-                wm.textContent = text;
-
-                wm.style.top = Math.random() * 100 + "%";
-                wm.style.left = Math.random() * 100 + "%";
-                wm.style.color = `rgba(255, 0, 0, ${0.05 + Math.random() * 0.1})`;
-                wm.style.transform = `rotate(${ -30 + (Math.random() * 20 - 10) }deg)`;
-
-                container.appendChild(wm);
+            
+            .popup-content {
+                padding: 20px 16px;
             }
-
-            // Popup
-            const popup = document.createElement('div');
-            popup.className = 'popup';
-            popup.innerHTML = `
-                <p>This certificate is approved as of April 30, 2026.</p>
-                <button onclick="closePopup()">Close</button>
-            `;
-            document.body.appendChild(popup);
-
-            setTimeout(closePopup, 8000);
-        };
-
-        function closePopup() {
-            const popup = document.querySelector('.popup');
-            if (popup) popup.style.display = 'none';
+            
+            .popup p {
+                font-size: 15.5px;
+            }
         }
-    </script>
+    </style>
 </head>
-
 <body>
-    <div class="image-container">
-        <img src="Mr_Aniketh_Certificate.png" alt="NX25IN25006">
-    </div>
+
+<div class="image-container">
+    <img src="Mr_Aniketh_Certificate.png" alt="Certificate NX25IN25006" draggable="false">
+</div>
+
+<!-- Watermarks & Popup will be added via JS -->
+
+<script>
+    // ================== Watermarks ==================
+    function addWatermarks() {
+        const container = document.querySelector('.image-container');
+        const text = "Unapproved";
+        const count = window.innerWidth < 600 ? 12 : 20;
+
+        for(let i = 0; i < count; i++) {
+            const wm = document.createElement('div');
+            wm.className = 'watermark';
+            wm.textContent = text;
+
+            const top = Math.random() * 92 + 4;
+            const left = Math.random() * 92 + 4;
+            const rot = -35 + Math.random() * 20;
+            const opacity = 0.07 + Math.random() * 0.09;
+
+            wm.style.top = `${top}%`;
+            wm.style.left = `${left}%`;
+            wm.style.transform = `rotate(${rot}deg)`;
+            wm.style.opacity = opacity;
+
+            container.appendChild(wm);
+        }
+    }
+
+    // ================== Popup ==================
+    function showPopup() {
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+
+        popup.innerHTML = `
+            <div class="popup-content">
+                <p>This certificate is approved as of <strong>April 30, 2026</strong>.</p>
+                <button onclick="this.closest('.popup').remove()">Close</button>
+            </div>
+        `;
+
+        document.body.appendChild(popup);
+
+        // Auto close after 7 seconds on mobile
+        if(window.innerWidth <= 768) {
+            setTimeout(() => popup.remove(), 7000);
+        }
+    }
+
+    // ================== Start ==================
+    window.addEventListener('load', () => {
+        addWatermarks();
+        setTimeout(showPopup, 800);
+    });
+
+    // ================== Protection (basic) ==================
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    
+    document.addEventListener('keydown', e => {
+        // Common screenshot/dev tools attempts
+        if (e.key === 'PrintScreen' || 
+            (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u' || e.key === 'i'))) {
+            e.preventDefault();
+        }
+    });
+</script>
 </body>
 </html>
