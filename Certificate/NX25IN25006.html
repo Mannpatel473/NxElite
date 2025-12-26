@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NxElite-Certificate</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+
+        // Disable screenshot (warning, not foolproof)
+        document.addEventListener('keydown', function(event) {
+            // Disable common screenshot keys (Ctrl+Shift+I or F12)
+            if (event.ctrlKey && (event.key === 'I' || event.key === 'i' || event.key === 'U' || event.key === 'u')) {
+                event.preventDefault();
+            }
+            // Disable F12 (DevTools) and print screen (for screenshots)
+            if (event.key === 'F12' || event.key === 'PrintScreen') {
+                event.preventDefault();
+            }
+        });
+
+        // Disable dragging the image
+        window.onload = function() {
+            const img = document.querySelector('img');
+            img.ondragstart = function() {
+                return false;
+            };
+        };
+    </script>
+</head>
+<body>
+    <img src="NX25IN25006.png" alt="NX25IN25006">
+</body>
+</html>
