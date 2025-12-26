@@ -10,10 +10,11 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #f4f4f9;
             margin: 0;
             position: relative;
             overflow: hidden;
+            font-family: 'Arial', sans-serif;
         }
         .watermark {
             position: absolute;
@@ -30,6 +31,63 @@
             border: 1px solid #ccc;
             position: relative;
             z-index: 10;
+        }
+
+        /* Popup Styles */
+        .popup {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 350px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.6s forwards;
+        }
+
+        .popup p {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .popup button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(255, 123, 255, 0.3);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .popup button:hover {
+            background-color: #b30000;
+            transform: scale(1.05);
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Close Button Hover Effect */
+        .popup button:focus {
+            outline: none;
         }
     </style>
     <script>
@@ -86,7 +144,30 @@
 
                 container.appendChild(wm);
             }
+
+            // Show the popup after the page loads
+            const popup = document.createElement('div');
+            popup.classList.add('popup');
+            popup.innerHTML = `
+                <p>This certificate is approved as of April 30, 2026.
+</p>
+                <button onclick="closePopup()">Close</button>
+            `;
+            document.body.appendChild(popup);
+
+            // Automatically close the popup after 3 seconds
+            setTimeout(function() {
+                closePopup();
+            }, 8000); // 8000ms = 8 seconds
         };
+
+        // Function to close the popup
+        function closePopup() {
+            const popup = document.querySelector('.popup');
+            if (popup) {
+                popup.style.display = 'none';
+            }
+        }
     </script>
 </head>
 <body>
