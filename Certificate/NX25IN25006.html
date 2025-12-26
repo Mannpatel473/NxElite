@@ -11,11 +11,25 @@
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .watermark {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 0, 0, 0.2);
+            pointer-events: none;
+            transform: rotate(-30deg);
+            font-weight: bold;
+            white-space: nowrap;
         }
         img {
             max-width: 100%;
             max-height: 100%;
             border: 1px solid #ccc;
+            position: relative;
+            z-index: 10;
         }
     </style>
     <script>
@@ -39,9 +53,39 @@
         // Disable dragging the image
         window.onload = function() {
             const img = document.querySelector('img');
-            img.ondragstart = function() {
-                return false;
-            };
+            if (img) {
+                img.ondragstart = function() {
+                    return false;
+                };
+            }
+
+            // Dynamically add multiple watermarks
+            const container = document.body;
+            const text = "unapproved";
+            const numWatermarks = 20; // Adjust for more/less density
+
+            for (let i = 0; i < numWatermarks; i++) {
+                const wm = document.createElement('div');
+                wm.className = 'watermark';
+                wm.textContent = text;
+
+                // Random position
+                const top = Math.random() * 100;
+                const left = Math.random() * 100;
+
+                wm.style.top = `${top}%`;
+                wm.style.left = `${left}%`;
+
+                // Optional: slight random rotation variation
+                const rotation = -30 + (Math.random() * 20 - 10);
+                wm.style.transform = `rotate(${rotation}deg)`;
+
+                // Random opacity for subtlety
+                const opacity = 0.05 + Math.random() * 0.1;
+                wm.style.color = `rgba(100, 100, 100, ${opacity})`;
+
+                container.appendChild(wm);
+            }
         };
     </script>
 </head>
