@@ -125,20 +125,18 @@
       transition: var(--transition);
     }
 
-      /* Bottom nav – uncomment & adjust if you prefer this style on mobile */
-@media (max-width: 768px) {
+     /* Desktop / tablet adjustments */
+@media (min-width: 769px) {
   #navbar {
-    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-      width: calc(100% - 48px); max-width: 1200px; z-index: 999;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 24px 10px 24px;
-      background: rgba(255,255,255,.5);
-      backdrop-filter: blur(40px);
-      -webkit-backdrop-filter: blur(40px);
-      border-radius: 48px;
-      box-shadow: var(--shadow-nav);
-      transition: var(--transition);
-    }
+    top: 16px;
+    width: calc(100% - 48px);
+    max-width: 1200px;
+    padding: 10px 24px;
+    border-radius: 48px;       /* your original more subtle radius */
+    background: rgba(255, 255, 255, 0.5); /* slightly more transparent on big screens */
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+  }
 }
       
       
