@@ -130,27 +130,17 @@
 @media(max-width:860px){
 
   #navbar{
-    padding:10px 18px;
-  }
-
-  #navbar .nav-links,
-  #navbar .nav-cta{
-    display:none;
-  }
-
-  #hamburger{
-    display:flex;
-  }
-
-  #mobile-menu{
-    display:none;
-  }
-
-  #mobile-menu.open{
-    display:flex;
-    flex-direction:column;
-  }
-
+    position: fixed; top: 16px; left: 45%; transform: translateX(-50%);
+      width: calc(95% - 48px); max-width: 1200px; z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px 10px 24px;
+      background: rgba(255,255,255,.5);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border-radius: 48px;
+      box-shadow: var(--shadow-nav);
+      transition: var(--transition);
+    }
 }
       
       
