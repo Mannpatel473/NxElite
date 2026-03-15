@@ -184,6 +184,13 @@
   visibility: visible;
 }
 
+      #mobile-menu a {
+      font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 14px 20px; border-radius: 16px; color: var(--dark);
+      transition: var(--transition); display: block;
+    }
+    #mobile-menu a:hover { background: rgba(0,25,255,.08); color: var(--primary); }
+
 @media(max-width:860px){
   #navbar .nav-links, #navbar .nav-cta { display: none; }
   #hamburger { display: flex; }
