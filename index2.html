@@ -125,17 +125,17 @@
       transition: var(--transition);
     }
 
-     /* Desktop / tablet adjustments */
-@media (min-width: 769px) {
+     @media (max-width: 768px) {
   #navbar {
-    top: 16px;
-    width: calc(100% - 48px);
-    max-width: 1200px;
-    padding: 10px 24px;
-    border-radius: 48px;       /* your original more subtle radius */
-    background: rgba(255, 255, 255, 0.5); /* slightly more transparent on big screens */
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
+    gap: 10px;
+  }
+
+  #navbar .nav-links {
+    display: none; /* hide desktop links */
+  }
+
+  #navbar .menu-btn {
+    display: block; /* show hamburger */
   }
 }
       
