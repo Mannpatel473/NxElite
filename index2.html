@@ -124,6 +124,26 @@
       box-shadow: var(--shadow-nav);
       transition: var(--transition);
     }
+
+      /* Bottom nav – uncomment & adjust if you prefer this style on mobile */
+@media (max-width: 768px) {
+  #navbar {
+    top: auto;
+    bottom: 16px;               /* or 8px / env(safe-area-inset-bottom) */
+    left: 45%;
+    transform: translateX(-50%);
+    width: calc(95% - 24px);
+    max-width: 420px;
+    padding: 12px 20px;
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+}
+      
+      
     #navbar .nav-logo img { height: 36px; width: auto; object-fit: contain; }
     #navbar .nav-links { display: flex; align-items: center; gap: 4px; }
     #navbar .nav-links a {
