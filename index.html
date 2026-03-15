@@ -1530,7 +1530,7 @@
 
   <!-- ==============================
        JAVASCRIPT
-  ============================== -->
+  ============================== --
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ------- Hamburger / Mobile Menu -------
     const hamburger  = document.getElementById('hamburger');
@@ -1628,5 +1628,180 @@
       }
     });
   </script>
+
+
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // ------- Hamburger / Mobile Menu -------
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (hamburger && mobileMenu) {
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      mobileMenu.setAttribute('aria-hidden', !mobileMenu.classList.contains('open'));
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    hamburger.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') hamburger.click();
+    });
+
+  }
+
+  // ------- Scroll Animations -------
+  const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+  if (revealElements.length) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    revealElements.forEach(el => observer.observe(el));
+  }
+
+  // ------- FAQ Accordion -------
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  if (faqItems.length) {
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+
+      if (question) {
+        question.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+
+          faqItems.forEach(i => i.classList.remove('open'));
+
+          if (!isOpen) item.classList.add('open');
+        });
+      }
+    });
+  }
+
+  // ------- Scroll-to-top -------
+  const scrollBtn = document.getElementById('scroll-top');
+
+  if (scrollBtn) {
+    window.addEventListener('scroll', () => {
+      scrollBtn.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ------- Active nav link highlight -------
+  const sections = document.querySelectorAll('section[id], #logos');
+  const navLinks = document.querySelectorAll('#navbar .nav-links a');
+
+  if (sections.length && navLinks.length) {
+    const navObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+
+          navLinks.forEach(l => l.style.color = '');
+
+          const active = document.querySelector(`#navbar .nav-links a[href="#${e.target.id}"]`);
+          if (active) active.style.color = 'var(--primary)';
+
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(s => navObserver.observe(s));
+  }
+
+  // ------- Contact Form -------
+  const contactForm = document.getElementById('contactForm');
+
+  if (contactForm) {
+
+    contactForm.addEventListener('submit', function(e) {
+
+      e.preventDefault();
+
+      const alert = document.getElementById('formAlert');
+
+      const name = this.name.value.trim();
+      const email = this.email.value.trim();
+      const message = this.message.value.trim();
+
+      if (!name || !email || !message) {
+        alert.textContent = 'Please fill in all required fields.';
+        alert.className = 'form-alert error show';
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email)) {
+        alert.textContent = 'Please enter a valid email address.';
+        alert.className = 'form-alert error show';
+        return;
+      }
+
+      const btn = this.querySelector('.form-submit');
+
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      setTimeout(() => {
+
+        alert.textContent = "✓ Message sent! We'll get back to you within one business day.";
+        alert.className = 'form-alert success show';
+
+        this.reset();
+
+        btn.innerHTML = `
+        Send Message 
+        <svg class="arrow-icon" viewBox="0 0 24 24">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>`;
+
+        btn.disabled = false;
+
+      }, 1200);
+
+    });
+
+  }
+
+  // ------- Navbar: shrink on scroll -------
+  const navbar = document.getElementById('navbar');
+
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      navbar.style.background =
+        window.scrollY > 80
+          ? 'rgba(255,255,255,0.85)'
+          : 'rgba(255,255,255,0.5)';
+    });
+  }
+
+});
+</script-->
+
+
+
+
+    
 </body>
 </html>
