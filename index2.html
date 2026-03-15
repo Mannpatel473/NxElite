@@ -111,7 +111,7 @@
 
     /* ==============================
        NAVIGATION
-    ============================== *
+    ============================== */
     #navbar {
       position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
       width: calc(100% - 48px); max-width: 1200px; z-index: 999;
@@ -142,30 +142,6 @@
       transition: var(--transition); cursor: pointer;
     }
     #navbar .nav-cta:hover { background: var(--primary); color: var(--white); }
-
-      /* ───────────────────────────────────────────────
-   MOBILE NAVIGATION – Improved version
-─────────────────────────────────────────────── */
-
-#navbar {
-  position: fixed;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 32px);
-  max-width: 1180px;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 60px;
-  box-shadow: 0 10px 60px rgba(7,11,52,0.15);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
 
 
     /* Hamburger */
