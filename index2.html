@@ -124,6 +124,34 @@
       box-shadow: var(--shadow-nav);
       transition: var(--transition);
     }
+
+
+      /* MOBILE NAVBAR */
+@media(max-width:860px){
+
+  #navbar{
+    padding:10px 18px;
+  }
+
+  #navbar .nav-links,
+  #navbar .nav-cta{
+    display:none;
+  }
+
+  #hamburger{
+    display:flex;
+  }
+
+  #mobile-menu{
+    display:none;
+  }
+
+  #mobile-menu.open{
+    display:flex;
+    flex-direction:column;
+  }
+
+}
       
       
     #navbar .nav-logo img { height: 36px; width: auto; object-fit: contain; }
