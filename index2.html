@@ -761,7 +761,7 @@
 
     /* ==============================
        SCROLL-TO-TOP
-    ============================== */
+    ============================== *
     #scroll-top {
       position: fixed; bottom: 28px; right: 28px; z-index: 800;
       width: 48px; height: 48px; border-radius: 50%;
@@ -778,6 +778,72 @@
     /* ==============================
        SUCCESS / ALERT
     ============================== */
+
+
+/* Improved scroll-to-top – mobile friendly */
+#scroll-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 800;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 8px 24px rgba(0,25,255,.4);
+}
+
+#scroll-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#scroll-top:hover {
+  transform: translateY(-4px);
+  background: var(--primary-light);
+}
+
+#scroll-top svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--white);
+  fill: none;
+  stroke-width: 2.5;
+}
+
+/* ─── Mobile adjustments ─────────────────────────────────────── */
+@media (max-width: 640px) {
+  #scroll-top {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;           /* better touch target */
+    height: 56px;
+    box-shadow: 0 6px 20px rgba(0,25,255,.45);
+  }
+
+  #scroll-top svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* When keyboard is likely open (very short viewport) */
+@media (max-height: 520px) {
+  #scroll-top {
+    bottom: 90px;          /* avoid overlap with keyboard / bottom bar */
+  }
+}
+
+      
+      
     .form-alert {
       display: none; margin-top: 16px;
       padding: 14px 20px; border-radius: 16px;
