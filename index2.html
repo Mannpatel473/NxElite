@@ -124,40 +124,6 @@
       box-shadow: var(--shadow-nav);
       transition: var(--transition);
     }
-
-
-      /* MOBILE NAVBAR */
-@media(max-width:860px){
-
-  #navbar {
-    position: fixed;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(95% - 48px);
-    max-width: 1200px;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 24px;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border-radius: 48px;
-    box-shadow: var(--shadow-nav);
-    transition: var(--transition);
-}
-
-/* Add this if you want an explicit centered item */
-#navbar .center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;     /* ← lets clicks pass through if needed */
-}
-}
-/* Or better — use flex children pattern */
       
     #navbar .nav-logo img { height: 36px; width: auto; object-fit: contain; }
     #navbar .nav-links { display: flex; align-items: center; gap: 4px; }
