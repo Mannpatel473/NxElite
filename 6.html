@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NxElite IT Solutions | Web Development, Design & IT Consulting</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
@@ -13,36 +13,19 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
                     },
                     colors: {
                         gold: {
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
+                            400: '#d4af37',
+                            500: '#c5a028',
+                            600: '#b8941f',
                         },
-                    },
-                    animation: {
-                        'gradient-x': 'gradient-x 15s ease infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'spin-slow': 'spin 20s linear infinite',
-                    },
-                    keyframes: {
-                        'gradient-x': {
-                            '0%, 100%': {
-                                'background-size': '200% 200%',
-                                'background-position': 'left center'
-                            },
-                            '50%': {
-                                'background-size': '200% 200%',
-                                'background-position': 'right center'
-                            },
-                        },
-                        'float': {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#111111',
+                            700: '#1a1a1a',
+                        }
                     }
                 }
             }
@@ -50,188 +33,57 @@
     </script>
     <style>
         body {
-            background-color: #050505;
+            background-color: #0a0a0a;
             color: #ffffff;
-            overflow-x: hidden;
         }
-        
-        /* Gradient Text */
-        .text-gradient {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 25%, #ec4899 50%, #8b5cf6 75%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            background-size: 300% 300%;
-            animation: gradient-x 5s ease infinite;
+        .gold-text {
+            color: #d4af37;
         }
-        
-        .text-gradient-gold {
-            background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 25%, #f59e0b 50%, #d97706 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .gold-border {
+            border-color: #d4af37;
         }
-        
-        /* Gradient Backgrounds */
-        .bg-gradient-mesh {
-            background: 
-                radial-gradient(at 0% 0%, rgba(251, 191, 36, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-                #050505;
+        .gold-bg {
+            background-color: #d4af37;
         }
-        
-        .bg-gradient-hero {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #0f0f0f 100%);
+        .gold-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
         }
-        
-        .bg-gradient-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-            backdrop-filter: blur(10px);
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #d4af37 50%, transparent 100%);
         }
-        
-        .bg-gradient-border {
-            position: relative;
-            background: #0f0f0f;
-            border-radius: 16px;
-        }
-        
-        .bg-gradient-border::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 18px;
-            padding: 2px;
-            background: linear-gradient(135deg, #fbbf24, #ec4899, #8b5cf6, #3b82f6);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0.5;
-            transition: opacity 0.3s ease;
-        }
-        
-        .bg-gradient-border:hover::before {
-            opacity: 1;
-        }
-        
-        /* Glass Effect */
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .glass-strong {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Buttons */
-        .btn-gradient {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
-            color: #000;
-            font-weight: 700;
+        .service-card {
+            background: #111111;
+            border: 1px solid #222;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
-        
-        .btn-gradient::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s ease;
+        .service-card:hover {
+            border-color: #d4af37;
+            transform: translateY(-5px);
         }
-        
-        .btn-gradient:hover::before {
-            left: 100%;
-        }
-        
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px -10px rgba(251, 191, 36, 0.5);
-        }
-        
-        .btn-outline-gradient {
-            background: transparent;
-            border: 2px solid transparent;
-            background-image: linear-gradient(#0f0f0f, #0f0f0f), linear-gradient(135deg, #fbbf24, #ec4899);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            color: #fff;
+        .btn-primary {
+            background: #d4af37;
+            color: #0a0a0a;
             font-weight: 600;
             transition: all 0.3s ease;
         }
-        
-        .btn-outline-gradient:hover {
-            background-image: linear-gradient(rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.1)), linear-gradient(135deg, #fbbf24, #ec4899);
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+        .btn-primary:hover {
+            background: #f4d03f;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
         }
-        
-        /* Cards */
-        .card-hover {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .btn-outline {
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
-        
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px -20px rgba(251, 191, 36, 0.3);
+        .btn-outline:hover {
+            background: #d4af37;
+            color: #0a0a0a;
         }
-        
-        /* Gradient Orbs */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: float 10s ease-in-out infinite;
-        }
-        
-        .orb-1 {
-            background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, transparent 70%);
-            width: 400px;
-            height: 400px;
-            top: -200px;
-            left: -200px;
-        }
-        
-        .orb-2 {
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.6) 0%, transparent 70%);
-            width: 500px;
-            height: 500px;
-            top: 20%;
-            right: -200px;
-            animation-delay: -5s;
-        }
-        
-        .orb-3 {
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.6) 0%, transparent 70%);
-            width: 300px;
-            height: 300px;
-            bottom: -100px;
-            left: 30%;
-            animation-delay: -2s;
-        }
-        
-        /* Navigation */
         .nav-link {
             position: relative;
-            color: #9ca3af;
-            transition: color 0.3s ease;
         }
-        
-        .nav-link:hover {
-            color: #fbbf24;
-        }
-        
         .nav-link::after {
             content: '';
             position: absolute;
@@ -239,266 +91,266 @@
             height: 2px;
             bottom: -4px;
             left: 0;
-            background: linear-gradient(90deg, #fbbf24, #ec4899);
+            background-color: #d4af37;
             transition: width 0.3s ease;
         }
-        
         .nav-link:hover::after {
             width: 100%;
         }
-        
-        /* Tech Badges */
+        .team-card {
+            background: #111111;
+            border-left: 3px solid #d4af37;
+        }
+        .highlight-box {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #d4af37;
+        }
         .tech-badge {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1a1a1a;
+            border: 1px solid #333;
             transition: all 0.3s ease;
         }
-        
         .tech-badge:hover {
-            background: rgba(251, 191, 36, 0.1);
-            border-color: rgba(251, 191, 36, 0.5);
-            color: #fbbf24;
-            transform: translateY(-2px);
+            border-color: #d4af37;
+            color: #d4af37;
         }
-        
-        /* FAQ */
-        .faq-content {
+        .faq-item {
+            border-bottom: 1px solid #222;
+        }
+        .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
+            transition: max-height 0.3s ease;
         }
-        
-        .faq-content.active {
+        .faq-answer.active {
             max-height: 500px;
-        }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #0f0f0f;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #fbbf24, #ec4899);
-            border-radius: 5px;
-        }
-        
-        /* Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
-<body class="font-sans antialiased bg-gradient-mesh">
+<body class="font-sans antialiased">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-strong transition-all duration-300" id="navbar">
+    <nav class="fixed w-full z-50 bg-dark-900/95 backdrop-blur-sm border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center">
-                    <img src="https://www.nxelite.in/header.png" alt="NxElite" class="h-12 w-auto drop-shadow-[0_0_15px_rgba(251,191,36,0.3)]">
+                    <img src="https://www.nxelite.in/header.png" alt="NxElite" class="h-12 w-auto">
                 </div>
                 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#services" class="nav-link text-sm uppercase tracking-wider font-medium">Services</a>
-                    <a href="#about" class="nav-link text-sm uppercase tracking-wider font-medium">About</a>
-                    <a href="#internship" class="nav-link text-sm uppercase tracking-wider font-medium">Internships</a>
-                    <a href="#team" class="nav-link text-sm uppercase tracking-wider font-medium">Team</a>
-                    <a href="#contact" class="btn-gradient px-6 py-2.5 rounded-full text-sm uppercase tracking-wider">Contact Us</a>
+                    <a href="#services" class="nav-link text-gray-300 hover:text-white transition-colors text-sm uppercase tracking-wider">Services</a>
+                    <a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors text-sm uppercase tracking-wider">About</a>
+                    <a href="#internship" class="nav-link text-gray-300 hover:text-white transition-colors text-sm uppercase tracking-wider">Internships</a>
+                    <a href="#team" class="nav-link text-gray-300 hover:text-white transition-colors text-sm uppercase tracking-wider">Team</a>
+                    <a href="#contact" class="btn-primary px-6 py-2.5 rounded text-sm uppercase tracking-wider">Contact Us</a>
                 </div>
 
-                <button class="md:hidden text-white text-2xl hover:text-gold-400 transition-colors" onclick="toggleMobileMenu()">
+                <button class="md:hidden text-white text-xl" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden glass-strong border-t border-white/10">
-            <div class="px-4 py-6 space-y-4">
-                <a href="#services" class="block py-2 text-gray-300 hover:text-gold-400 transition-colors">Services</a>
-                <a href="#about" class="block py-2 text-gray-300 hover:text-gold-400 transition-colors">About</a>
-                <a href="#internship" class="block py-2 text-gray-300 hover:text-gold-400 transition-colors">Internships</a>
-                <a href="#team" class="block py-2 text-gray-300 hover:text-gold-400 transition-colors">Team</a>
+        <div id="mobileMenu" class="hidden md:hidden bg-dark-900 border-t border-white/10">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#services" class="block py-2 text-gray-300 hover:text-gold-400">Services</a>
+                <a href="#about" class="block py-2 text-gray-300 hover:text-gold-400">About</a>
+                <a href="#internship" class="block py-2 text-gray-300 hover:text-gold-400">Internships</a>
+                <a href="#team" class="block py-2 text-gray-300 hover:text-gold-400">Team</a>
                 <a href="#contact" class="block py-2 text-gold-400 font-semibold">Contact Us</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <!-- Animated Orbs -->
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
+    <section class="relative min-h-screen flex items-center bg-dark-900 pt-20">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23d4af37%22%20fill-opacity%3D%220.03%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
         
-        <!-- Grid Pattern -->
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.02%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-8 animate-float">
-                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                <span class="text-sm font-medium text-gray-300">Available for new projects</span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-dark-800 border border-gold-400/30 rounded-full mb-6">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span class="text-sm text-gray-400">Available for new projects</span>
+                    </div>
+                    
+                    <h1 class="font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-tight mb-6">
+                        Empowering Brands with<br>
+                        <span class="gold-text">Technology</span> & <span class="gold-text">Design</span>
+                    </h1>
+                    
+                    <p class="text-gray-400 text-lg md:text-xl max-w-xl mb-8 leading-relaxed">
+                        We craft digital experiences — from blazing-fast websites and memorable logos to strategic IT consulting and hands-on internships.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#contact" class="btn-primary px-8 py-4 rounded text-center">
+                            Start Your Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#services" class="btn-outline px-8 py-4 rounded text-center">
+                            View Services
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:block">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-gold-400/20 to-transparent rounded-3xl blur-3xl"></div>
+                        <div class="relative bg-dark-800 border border-white/10 rounded-2xl p-8">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-dark-900 p-4 rounded-lg border border-white/5">
+                                    <i class="fas fa-code gold-text text-2xl mb-2"></i>
+                                    <p class="text-sm text-gray-400">Web Development</p>
+                                </div>
+                                <div class="bg-dark-900 p-4 rounded-lg border border-white/5">
+                                    <i class="fas fa-paint-brush gold-text text-2xl mb-2"></i>
+                                    <p class="text-sm text-gray-400">Logo Design</p>
+                                </div>
+                                <div class="bg-dark-900 p-4 rounded-lg border border-white/5">
+                                    <i class="fas fa-lightbulb gold-text text-2xl mb-2"></i>
+                                    <p class="text-sm text-gray-400">IT Consulting</p>
+                                </div>
+                                <div class="bg-dark-900 p-4 rounded-lg border border-white/5">
+                                    <i class="fas fa-graduation-cap gold-text text-2xl mb-2"></i>
+                                    <p class="text-sm text-gray-400">Internships</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <h1 class="font-display font-bold text-5xl md:text-7xl lg:text-8xl mb-6 leading-tight">
-                Empowering Brands with<br>
-                <span class="text-gradient">Technology & Design</span>
-            </h1>
-
-            <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
-                We craft digital experiences — from blazing-fast websites and memorable logos to strategic IT consulting and hands-on internships.
-            </p>
-
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-                <a href="#contact" class="btn-gradient px-8 py-4 rounded-full text-lg flex items-center gap-2">
-                    Start Your Project <i class="fas fa-arrow-right"></i>
-                </a>
-                <a href="#services" class="btn-outline-gradient px-8 py-4 rounded-full text-lg flex items-center gap-2">
-                    Explore Services <i class="fas fa-play-circle"></i>
-                </a>
-            </div>
-
+            
             <!-- Tech Stack -->
-            <div class="mt-16">
+            <div class="mt-16 pt-8 border-t border-white/10">
                 <p class="text-sm text-gray-500 uppercase tracking-widest mb-6">Technologies & tools we work with:</p>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <span class="tech-badge px-4 py-2 rounded-full text-sm flex items-center gap-2"><i class="fab fa-react text-blue-400"></i>React</span>
-                    <span class="tech-badge px-4 py-2 rounded-full text-sm flex items-center gap-2"><i class="fab fa-node text-green-500"></i>Node.js</span>
-                    <span class="tech-badge px-4 py-2 rounded-full text-sm flex items-center gap-2"><i class="fab fa-wordpress text-blue-500"></i>WordPress</span>
-                    <span class="tech-badge px-4 py-2 rounded-full text-sm flex items-center gap-2"><i class="fab fa-php text-purple-400"></i>PHP</span>
-                    <span class="tech-badge px-4 py-2 rounded-full text-sm flex items-center gap-2"><i class="fab fa-adobe text-red-500"></i>Adobe Suite</span>
-                    <span class="tech-badge px-4 py-2 rounded-full text-sm flex items-center gap-2"><i class="fab fa-figma text-pink-400"></i>Figma</span>
-                    <span class="tech-badge px-4 py-2 rounded-full text-sm flex items-center gap-2"><i class="fab fa-aws text-orange-400"></i>AWS</span>
-                    <span class="tech-badge px-4 py-2 rounded-full text-sm flex items-center gap-2"><i class="fas fa-database text-blue-300"></i>MySQL</span>
-                    <span class="tech-badge px-4 py-2 rounded-full text-sm flex items-center gap-2"><i class="fab fa-python text-yellow-400"></i>Python</span>
+                <div class="flex flex-wrap gap-3">
+                    <span class="tech-badge px-4 py-2 rounded text-sm"><i class="fab fa-react mr-2"></i>React</span>
+                    <span class="tech-badge px-4 py-2 rounded text-sm"><i class="fab fa-node mr-2"></i>Node.js</span>
+                    <span class="tech-badge px-4 py-2 rounded text-sm"><i class="fab fa-wordpress mr-2"></i>WordPress</span>
+                    <span class="tech-badge px-4 py-2 rounded text-sm"><i class="fab fa-php mr-2"></i>PHP</span>
+                    <span class="tech-badge px-4 py-2 rounded text-sm"><i class="fab fa-adobe mr-2"></i>Adobe Suite</span>
+                    <span class="tech-badge px-4 py-2 rounded text-sm"><i class="fab fa-figma mr-2"></i>Figma</span>
+                    <span class="tech-badge px-4 py-2 rounded text-sm"><i class="fab fa-aws mr-2"></i>AWS</span>
+                    <span class="tech-badge px-4 py-2 rounded text-sm"><i class="fas fa-database mr-2"></i>MySQL</span>
+                    <span class="tech-badge px-4 py-2 rounded text-sm"><i class="fab fa-python mr-2"></i>Python</span>
                 </div>
             </div>
         </div>
-
-        <!-- Scroll Indicator ->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i class="fas fa-chevron-down text-gold-400 text-2xl"></i>
-        </div>
     </section>
 
+    <div class="section-divider"></div>
+
     <!-- Problems Section -->
-    <section class="py-24 relative">
+    <section class="py-20 bg-dark-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <h2 class="font-display font-bold text-4xl md:text-5xl mb-4">Challenges We <span class="text-gradient-gold">Eliminate</span></h2>
-                <p class="text-gray-400 text-lg">Three critical pain points we solve for businesses ready to scale</p>
+            <div class="text-center mb-16">
+                <h2 class="font-display font-bold text-4xl md:text-5xl mb-4">Challenges We <span class="gold-text">Solve</span></h2>
+                <p class="text-gray-400">Three critical pain points we eliminate for growing businesses</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gradient-border p-8 card-hover reveal">
-                    <div class="text-6xl font-display font-bold text-gradient mb-4 opacity-50">01</div>
-                    <h3 class="font-display font-bold text-2xl mb-4 text-white">Weak Online Presence?</h3>
-                    <p class="text-gray-400 leading-relaxed">A poorly designed or absent digital footprint costs you clients every single day. We build high-converting websites and compelling brand identities that make you impossible to ignore.</p>
+                <div class="highlight-box p-8 rounded-r-lg">
+                    <div class="text-5xl font-display font-bold text-white/10 mb-4">01</div>
+                    <h3 class="font-display font-bold text-xl mb-3 text-white">Weak Online Presence?</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">A poorly designed or absent digital footprint costs you clients every single day. We build high-converting websites and compelling brand identities that make you impossible to ignore.</p>
                 </div>
 
-                <div class="bg-gradient-border p-8 card-hover reveal" style="transition-delay: 100ms;">
-                    <div class="text-6xl font-display font-bold text-gradient mb-4 opacity-50">02</div>
-                    <h3 class="font-display font-bold text-2xl mb-4 text-white">Inconsistent Branding?</h3>
-                    <p class="text-gray-400 leading-relaxed">Scattered visuals and mixed messages erode trust. We create cohesive brand systems — logos, business cards, brochures, and packaging — that tell a unified, powerful story.</p>
+                <div class="highlight-box p-8 rounded-r-lg">
+                    <div class="text-5xl font-display font-bold text-white/10 mb-4">02</div>
+                    <h3 class="font-display font-bold text-xl mb-3 text-white">Inconsistent Branding?</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Scattered visuals and mixed messages erode trust. We create cohesive brand systems — logos, business cards, brochures, and packaging — that tell a unified, powerful story.</p>
                 </div>
 
-                <div class="bg-gradient-border p-8 card-hover reveal" style="transition-delay: 200ms;">
-                    <div class="text-6xl font-display font-bold text-gradient mb-4 opacity-50">03</div>
-                    <h3 class="font-display font-bold text-2xl mb-4 text-white">Technology Gaps?</h3>
-                    <p class="text-gray-400 leading-relaxed">Legacy processes and outdated infrastructure slow your growth. Our IT consulting team modernises your tech stack, streamlines workflows, and sets you up to scale confidently.</p>
+                <div class="highlight-box p-8 rounded-r-lg">
+                    <div class="text-5xl font-display font-bold text-white/10 mb-4">03</div>
+                    <h3 class="font-display font-bold text-xl mb-3 text-white">Technology Gaps?</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Legacy processes and outdated infrastructure slow your growth. Our IT consulting team modernises your tech stack, streamlines workflows, and sets you up to scale confidently.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <div class="section-divider"></div>
+
     <!-- Services Section -->
-    <section id="services" class="py-24 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-16 reveal">
+    <section id="services" class="py-20 bg-dark-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
                 <span class="text-gold-400 font-semibold tracking-wider uppercase text-sm">Our Expertise</span>
-                <h2 class="font-display font-bold text-4xl md:text-5xl mt-2 mb-4">Services We <span class="text-gradient">Deliver</span></h2>
+                <h2 class="font-display font-bold text-4xl md:text-5xl mt-2">Services We <span class="gold-text">Deliver</span></h2>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="glass rounded-2xl p-8 card-hover group reveal">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/10">
-                        <i class="fas fa-code text-3xl text-gradient-gold"></i>
+                <div class="service-card p-8 rounded-lg">
+                    <div class="w-14 h-14 bg-dark-900 rounded-lg flex items-center justify-center mb-6 border border-gold-400/20">
+                        <i class="fas fa-laptop-code gold-text text-2xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-3">Web Development</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">Custom websites, web apps and e-commerce platforms built for speed, accessibility and conversion — using modern frameworks like React, Next.js and WordPress.</p>
                 </div>
 
-                <div class="glass rounded-2xl p-8 card-hover group reveal" style="transition-delay: 50ms;">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/10">
-                        <i class="fas fa-pen-nib text-3xl text-gradient-gold"></i>
+                <div class="service-card p-8 rounded-lg">
+                    <div class="w-14 h-14 bg-dark-900 rounded-lg flex items-center justify-center mb-6 border border-gold-400/20">
+                        <i class="fas fa-pen-nib gold-text text-2xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-3">Logo Design</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">Memorable, scalable logos that capture your brand's essence and leave a lasting impression across every touchpoint — print, digital, and beyond.</p>
                 </div>
 
-                <div class="glass rounded-2xl p-8 card-hover group reveal" style="transition-delay: 100ms;">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500/20 to-red-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/10">
-                        <i class="fas fa-file-alt text-3xl text-gradient-gold"></i>
+                <div class="service-card p-8 rounded-lg">
+                    <div class="w-14 h-14 bg-dark-900 rounded-lg flex items-center justify-center mb-6 border border-gold-400/20">
+                        <i class="fas fa-file-alt gold-text text-2xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-3">Brochure Design</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">Print-ready and digital brochures crafted to communicate your value proposition with visual clarity, compelling copy and professional polish.</p>
                 </div>
 
-                <div class="glass rounded-2xl p-8 card-hover group reveal" style="transition-delay: 150ms;">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500/20 to-yellow-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/10">
-                        <i class="fas fa-box text-3xl text-gradient-gold"></i>
+                <div class="service-card p-8 rounded-lg">
+                    <div class="w-14 h-14 bg-dark-900 rounded-lg flex items-center justify-center mb-6 border border-gold-400/20">
+                        <i class="fas fa-box gold-text text-2xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-3">Packaging & Printing</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Eye-catching packaging designs and premium print materials — product boxes, labels, stickers, banners — that make your brand shelf-worthy and click-worthy.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Eye-catching packaging designs and premium print materials — product boxes, labels, stickers, banners — that make your brand shelf-worthy.</p>
                 </div>
 
-                <div class="glass rounded-2xl p-8 card-hover group reveal" style="transition-delay: 200ms;">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/10">
-                        <i class="fas fa-id-card text-3xl text-gradient-gold"></i>
+                <div class="service-card p-8 rounded-lg">
+                    <div class="w-14 h-14 bg-dark-900 rounded-lg flex items-center justify-center mb-6 border border-gold-400/20">
+                        <i class="fas fa-id-card gold-text text-2xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-3">Business Card Design</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">First impressions that stick. We design premium business cards — both physical and digital — that reflect your brand's professionalism and personality.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">First impressions that stick. Premium business cards — both physical and digital — that reflect your brand's professionalism.</p>
                 </div>
 
-                <div class="glass rounded-2xl p-8 card-hover group reveal" style="transition-delay: 250ms;">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-white/10">
-                        <i class="fas fa-lightbulb text-3xl text-gradient-gold"></i>
+                <div class="service-card p-8 rounded-lg">
+                    <div class="w-14 h-14 bg-dark-900 rounded-lg flex items-center justify-center mb-6 border border-gold-400/20">
+                        <i class="fas fa-lightbulb gold-text text-2xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-3">IT Consulting</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Expert technology strategy, infrastructure planning, digital transformation roadmaps and hands-on implementation support tailored to your business goals.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Expert technology strategy, infrastructure planning, digital transformation roadmaps and hands-on implementation support.</p>
                 </div>
             </div>
 
-            <div class="mt-12 text-center reveal">
-                <div class="inline-flex items-center gap-3 px-6 py-3 glass rounded-full border border-gold-400/30">
-                    <i class="fas fa-gift text-gold-400"></i>
+            <div class="mt-12 text-center">
+                <div class="inline-flex items-center gap-3 px-6 py-3 bg-dark-900 border border-gold-400/30 rounded-lg">
+                    <i class="fas fa-gift gold-text"></i>
                     <span class="text-white font-medium">Free Consultation Available</span>
-                    <span class="text-gray-500">— No commitment required</span>
+                    <span class="text-gray-500">|</span>
+                    <span class="text-gray-400 text-sm">No commitment required</span>
                 </div>
             </div>
         </div>
     </section>
 
+    <div class="section-divider"></div>
+
     <!-- About Section -->
-    <section id="about" class="py-24 relative">
+    <section id="about" class="py-20 bg-dark-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="reveal">
+                <div>
                     <span class="text-gold-400 font-semibold tracking-wider uppercase text-sm">Our Approach</span>
-                    <h2 class="font-display font-bold text-4xl md:text-5xl mt-2 mb-6">About <span class="text-gradient">NxElite</span></h2>
+                    <h2 class="font-display font-bold text-4xl md:text-5xl mt-2 mb-6">About <span class="gold-text">NxElite</span></h2>
                     
                     <p class="text-gray-400 text-lg leading-relaxed mb-6">
                         NxElite IT Solutions is a remote-first digital agency dedicated to empowering businesses through cutting-edge technology and compelling design.
@@ -510,50 +362,49 @@
 
                     <div class="space-y-4">
                         <div class="flex items-start gap-4">
-                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-gold-400 to-orange-500 flex items-center justify-center flex-shrink-0 mt-1">
-                                <i class="fas fa-check text-black text-xs"></i>
+                            <div class="w-6 h-6 rounded-full bg-gold-400/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check gold-text text-xs"></i>
                             </div>
                             <span class="text-gray-300">Remote-first with global delivery capability</span>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-gold-400 to-orange-500 flex items-center justify-center flex-shrink-0 mt-1">
-                                <i class="fas fa-check text-black text-xs"></i>
+                            <div class="w-6 h-6 rounded-full bg-gold-400/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check gold-text text-xs"></i>
                             </div>
                             <span class="text-gray-300">Transparent process with clear milestones</span>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-gold-400 to-orange-500 flex items-center justify-center flex-shrink-0 mt-1">
-                                <i class="fas fa-check text-black text-xs"></i>
+                            <div class="w-6 h-6 rounded-full bg-gold-400/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check gold-text text-xs"></i>
                             </div>
                             <span class="text-gray-300">Design + Development + Strategy under one roof</span>
                         </div>
                         <div class="flex items-start gap-4">
-                            <div class="w-6 h-6 rounded-full bg-gradient-to-r from-gold-400 to-orange-500 flex items-center justify-center flex-shrink-0 mt-1">
-                                <i class="fas fa-check text-black text-xs"></i>
+                            <div class="w-6 h-6 rounded-full bg-gold-400/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check gold-text text-xs"></i>
                             </div>
                             <span class="text-gray-300">Dedicated internship program for students</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="relative reveal">
-                    <div class="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
-                    <div class="relative glass rounded-3xl p-8 border border-white/10">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 text-center border border-white/5">
-                                <div class="text-4xl font-display font-bold text-gradient mb-2">50+</div>
+                <div class="relative">
+                    <div class="bg-dark-800 border border-white/10 rounded-2xl p-8">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="text-center p-6 bg-dark-900 rounded-lg border border-white/5">
+                                <div class="text-4xl font-display font-bold gold-text mb-2">50+</div>
                                 <div class="text-gray-400 text-sm">Projects Delivered</div>
                             </div>
-                            <div class="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 text-center border border-white/5">
-                                <div class="text-4xl font-display font-bold text-gradient mb-2">3+</div>
+                            <div class="text-center p-6 bg-dark-900 rounded-lg border border-white/5">
+                                <div class="text-4xl font-display font-bold gold-text mb-2">3+</div>
                                 <div class="text-gray-400 text-sm">Years Experience</div>
                             </div>
-                            <div class="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 text-center border border-white/5">
-                                <div class="text-4xl font-display font-bold text-gradient mb-2">100%</div>
+                            <div class="text-center p-6 bg-dark-900 rounded-lg border border-white/5">
+                                <div class="text-4xl font-display font-bold gold-text mb-2">100%</div>
                                 <div class="text-gray-400 text-sm">Remote Team</div>
                             </div>
-                            <div class="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 text-center border border-white/5">
-                                <div class="text-4xl font-display font-bold text-gradient mb-2">24/7</div>
+                            <div class="text-center p-6 bg-dark-900 rounded-lg border border-white/5">
+                                <div class="text-4xl font-display font-bold gold-text mb-2">24/7</div>
                                 <div class="text-gray-400 text-sm">Support</div>
                             </div>
                         </div>
@@ -563,229 +414,223 @@
         </div>
     </section>
 
-    <!-- Internship Section -->
-    <section id="internship" class="py-24 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full">
-            <div class="absolute top-20 right-20 w-64 h-64 bg-gold-400/10 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
-        </div>
+    <div class="section-divider"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-16 reveal">
+    <!-- Internship Section -->
+    <section id="internship" class="py-20 bg-dark-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
                 <span class="text-gold-400 font-semibold tracking-wider uppercase text-sm">Career Growth</span>
-                <h2 class="font-display font-bold text-4xl md:text-5xl mt-2 mb-4">Work With <span class="text-gradient">Us</span></h2>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Kick-start your career with hands-on industry experience through our comprehensive internship programs</p>
+                <h2 class="font-display font-bold text-4xl md:text-5xl mt-2 mb-4">Work With <span class="gold-text">Us</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Kick-start your career with hands-on industry experience through our comprehensive internship programs</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <div class="glass rounded-2xl p-8 card-hover text-center reveal">
-                    <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center mb-6 border border-white/10">
-                        <i class="fas fa-laptop-code text-3xl text-gradient-gold"></i>
+                <div class="service-card p-8 rounded-lg text-center">
+                    <div class="w-16 h-16 mx-auto bg-dark-900 rounded-full flex items-center justify-center mb-6 border border-gold-400/20">
+                        <i class="fas fa-laptop-code gold-text text-2xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-3">Web Development</h3>
                     <p class="text-gray-400 text-sm">Work on live projects using HTML, CSS, JavaScript, React and backend technologies. Build portfolio-worthy apps from day one.</p>
                 </div>
 
-                <div class="glass rounded-2xl p-8 card-hover text-center reveal" style="transition-delay: 100ms;">
-                    <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-6 border border-white/10">
-                        <i class="fas fa-palette text-3xl text-gradient-gold"></i>
+                <div class="service-card p-8 rounded-lg text-center">
+                    <div class="w-16 h-16 mx-auto bg-dark-900 rounded-full flex items-center justify-center mb-6 border border-gold-400/20">
+                        <i class="fas fa-palette gold-text text-2xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-3">Graphic Design</h3>
                     <p class="text-gray-400 text-sm">Master Adobe Photoshop, Illustrator and Figma by designing real client assets — logos, social media posts, packaging and UI mockups.</p>
                 </div>
 
-                <div class="glass rounded-2xl p-8 card-hover text-center reveal" style="transition-delay: 200ms;">
-                    <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mb-6 border border-white/10">
-                        <i class="fas fa-chart-line text-3xl text-gradient-gold"></i>
+                <div class="service-card p-8 rounded-lg text-center">
+                    <div class="w-16 h-16 mx-auto bg-dark-900 rounded-full flex items-center justify-center mb-6 border border-gold-400/20">
+                        <i class="fas fa-chart-line gold-text text-2xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-3">IT Consulting</h3>
                     <p class="text-gray-400 text-sm">Shadow our consultants on client engagements, learn requirement gathering, solution design and professional client communication.</p>
                 </div>
             </div>
 
-            <div class="glass rounded-3xl p-8 md:p-12 border border-white/10 reveal">
+            <div class="bg-dark-900 border border-white/10 rounded-2xl p-8 md:p-12">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h3 class="font-display font-bold text-2xl mb-6 text-gradient-gold">Program Highlights</h3>
-                        <ul class="space-y-4">
+                        <h3 class="font-display font-bold text-2xl mb-6">Program Highlights</h3>
+                        <ul class="space-y-3 text-sm">
                             <li class="flex items-center gap-3 text-gray-300">
-                                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-400/20 to-orange-500/20 flex items-center justify-center border border-gold-400/30">
-                                    <i class="fas fa-clock text-gold-400 text-sm"></i>
-                                </div>
+                                <i class="fas fa-clock gold-text w-5"></i>
                                 <span>Duration: 1 – 3 months (flexible)</span>
                             </li>
                             <li class="flex items-center gap-3 text-gray-300">
-                                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-400/20 to-orange-500/20 flex items-center justify-center border border-gold-400/30">
-                                    <i class="fas fa-globe text-gold-400 text-sm"></i>
-                                </div>
+                                <i class="fas fa-globe gold-text w-5"></i>
                                 <span>100% Remote — work from anywhere in India</span>
                             </li>
                             <li class="flex items-center gap-3 text-gray-300">
-                                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-400/20 to-orange-500/20 flex items-center justify-center border border-gold-400/30">
-                                    <i class="fas fa-project-diagram text-gold-400 text-sm"></i>
-                                </div>
+                                <i class="fas fa-project-diagram gold-text w-5"></i>
                                 <span>Live project experience with real clients</span>
                             </li>
                             <li class="flex items-center gap-3 text-gray-300">
-                                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-400/20 to-orange-500/20 flex items-center justify-center border border-gold-400/30">
-                                    <i class="fas fa-user-tie text-gold-400 text-sm"></i>
-                                </div>
+                                <i class="fas fa-user-tie gold-text w-5"></i>
                                 <span>Mentorship from senior developers & designers</span>
                             </li>
                             <li class="flex items-center gap-3 text-gray-300">
-                                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-400/20 to-orange-500/20 flex items-center justify-center border border-gold-400/30">
-                                    <i class="fas fa-certificate text-gold-400 text-sm"></i>
-                                </div>
+                                <i class="fas fa-certificate gold-text w-5"></i>
                                 <span>Completion certificate issued digitally</span>
                             </li>
                             <li class="flex items-center gap-3 text-gray-300">
-                                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-gold-400/20 to-orange-500/20 flex items-center justify-center border border-gold-400/30">
-                                    <i class="fas fa-money-bill-wave text-gold-400 text-sm"></i>
-                                </div>
+                                <i class="fas fa-money-bill-wave gold-text w-5"></i>
                                 <span>Performance-based stipend available</span>
                             </li>
                         </ul>
                     </div>
                     <div class="text-center md:text-right">
-                        <div class="inline-block p-6 rounded-2xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 mb-6 text-left">
-                            <p class="text-sm text-gray-400 mb-2">Technologies:</p>
+                        <div class="bg-dark-800 border border-gold-400/20 rounded-lg p-6 mb-6 inline-block text-left">
+                            <p class="text-sm text-gray-400 mb-1">Technologies:</p>
                             <p class="text-white text-sm mb-4">React, Node, PHP, Adobe Suite, Figma</p>
-                            <p class="text-sm text-gray-400 mb-2">Open to:</p>
+                            <p class="text-sm text-gray-400 mb-1">Open to:</p>
                             <p class="text-white text-sm">B.Tech, BCA, BCS, Design students & freshers</p>
                         </div>
                         <br>
-                        <a href="mailto:Hr@nxelite.in?subject=Internship%20Application" class="btn-gradient px-8 py-4 rounded-full inline-flex items-center gap-2">
+                        <a href="mailto:Hr@nxelite.in?subject=Internship%20Application" class="btn-primary px-8 py-4 rounded inline-flex items-center gap-2">
                             Apply Now <i class="fas fa-paper-plane"></i>
                         </a>
-                        <p class="text-sm text-gray-500 mt-4">Send your résumé to <span class="text-gold-400">Hr@nxelite.in</span></p>
+                        <p class="text-sm text-gray-500 mt-4">Send your résumé to <span class="gold-text">Hr@nxelite.in</span></p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <div class="section-divider"></div>
+
     <!-- Team Section -->
-    <section id="team" class="py-24 relative">
+    <section id="team" class="py-20 bg-dark-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
+            <div class="text-center mb-16">
                 <span class="text-gold-400 font-semibold tracking-wider uppercase text-sm">Leadership</span>
-                <h2 class="font-display font-bold text-4xl md:text-5xl mt-2">Meet the <span class="text-gradient">Team</span></h2>
+                <h2 class="font-display font-bold text-4xl md:text-5xl mt-2">Meet the <span class="gold-text">Team</span></h2>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass rounded-2xl p-8 text-center card-hover reveal group">
-                    <div class="w-32 h-32 mx-auto mb-6 rounded-full p-1 bg-gradient-to-br from-gold-400 to-orange-500 group-hover:scale-105 transition-transform">
-                        <div class="w-full h-full rounded-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                            <i class="fas fa-user text-4xl text-gray-600"></i>
-                        </div>
+                <div class="team-card p-8 rounded-r-lg">
+                    <div class="w-20 h-20 bg-dark-800 rounded-full flex items-center justify-center mb-6 border-2 border-gold-400/30">
+                        <i class="fas fa-user gold-text text-3xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-1">Mann Kachhiya</h3>
-                    <p class="text-gold-400 font-medium mb-4">Founder</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Founded NxElite with a vision to revolutionize IT solutions in India, leveraging 3+ years of experience to lead the company's strategic direction.</p>
+                    <p class="gold-text font-medium text-sm mb-4">Founder</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Founded NxElite with a vision to revolutionize IT solutions in India, leveraging 3+ years of experience to lead the company's strategic direction. Strongly supported by Dhruv, whose expertise and IIT Bombay background add invaluable depth to the company's innovation and growth.</p>
                 </div>
 
-                <div class="glass rounded-2xl p-8 text-center card-hover reveal group" style="transition-delay: 100ms;">
-                    <div class="w-32 h-32 mx-auto mb-6 rounded-full p-1 bg-gradient-to-br from-purple-500 to-pink-500 group-hover:scale-105 transition-transform">
-                        <div class="w-full h-full rounded-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                            <i class="fas fa-user text-4xl text-gray-600"></i>
-                        </div>
+                <div class="team-card p-8 rounded-r-lg">
+                    <div class="w-20 h-20 bg-dark-800 rounded-full flex items-center justify-center mb-6 border-2 border-gold-400/30">
+                        <i class="fas fa-user gold-text text-3xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-1">Dhruv Kachhiya</h3>
-                    <p class="text-gold-400 font-medium mb-4">CEO</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">IIT Bombay M.Tech graduate with 8 years of industry experience, driving NxElite's technical excellence and innovation.</p>
+                    <p class="gold-text font-medium text-sm mb-4">CEO</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">IIT Bombay M.Tech graduate with 8 years of industry experience, driving NxElite's technical excellence and innovation. His deep expertise and strategic insight significantly strengthen the company's vision and execution.</p>
                 </div>
 
-                <div class="glass rounded-2xl p-8 text-center card-hover reveal group" style="transition-delay: 200ms;">
-                    <div class="w-32 h-32 mx-auto mb-6 rounded-full p-1 bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:scale-105 transition-transform">
-                        <div class="w-full h-full rounded-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                            <i class="fas fa-user text-4xl text-gray-600"></i>
-                        </div>
+                <div class="team-card p-8 rounded-r-lg">
+                    <div class="w-20 h-20 bg-dark-800 rounded-full flex items-center justify-center mb-6 border-2 border-gold-400/30">
+                        <i class="fas fa-user gold-text text-3xl"></i>
                     </div>
                     <h3 class="font-display font-bold text-xl mb-1">Sanket Prajapati</h3>
-                    <p class="text-gold-400 font-medium mb-4">CTO</p>
-                    <p class="text-gray-400 text-sm leading-relaxed">Leads the technical team, innovating in web development and IT consulting. Ensures cutting-edge technology implementation.</p>
+                    <p class="gold-text font-medium text-sm mb-4">CTO</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Leads the technical team, innovating in web development and IT consulting. Ensures cutting-edge technology implementation across all projects.</p>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="section-divider"></div>
 
     <!-- FAQ Section -->
-    <section class="py-24 relative">
+    <section class="py-20 bg-dark-800">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
+            <div class="text-center mb-16">
                 <span class="text-gold-400 font-semibold tracking-wider uppercase text-sm">FAQ</span>
-                <h2 class="font-display font-bold text-4xl md:text-5xl mt-2">Common <span class="text-gradient">Questions</span></h2>
+                <h2 class="font-display font-bold text-4xl md:text-5xl mt-2">Common <span class="gold-text">Questions</span></h2>
             </div>
 
-            <div class="space-y-4 reveal">
-                <div class="glass rounded-xl overflow-hidden border border-white/10">
-                    <button class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-white/5 transition-colors" onclick="toggleFaq(this)">
+            <div class="space-y-0">
+                <div class="faq-item py-6">
+                    <button class="w-full flex justify-between items-center text-left" onclick="toggleFaq(this)">
                         <span class="font-semibold text-lg text-white">What services does NxElite IT Solutions offer?</span>
-                        <i class="fas fa-plus text-gold-400 transition-transform duration-300"></i>
+                        <i class="fas fa-plus gold-text transition-transform"></i>
                     </button>
-                    <div class="faq-content px-6 text-gray-400 text-sm leading-relaxed">
-                        <div class="pb-5">We offer Web Development, Logo Design, Brochure Design, Packaging & Printing, Business Card Design, IT Consulting, and an Internship Program. Every service is tailored to your specific business needs and goals.</div>
+                    <div class="faq-answer text-gray-400 mt-4 text-sm leading-relaxed">
+                        We offer Web Development, Logo Design, Brochure Design, Packaging & Printing, Business Card Design, IT Consulting, and an Internship Program. Every service is tailored to your specific business needs and goals.
                     </div>
                 </div>
 
-                <div class="glass rounded-xl overflow-hidden border border-white/10">
-                    <button class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-white/5 transition-colors" onclick="toggleFaq(this)">
+                <div class="faq-item py-6">
+                    <button class="w-full flex justify-between items-center text-left" onclick="toggleFaq(this)">
                         <span class="font-semibold text-lg text-white">Do you work with clients outside India?</span>
-                        <i class="fas fa-plus text-gold-400 transition-transform duration-300"></i>
+                        <i class="fas fa-plus gold-text transition-transform"></i>
                     </button>
-                    <div class="faq-content px-6 text-gray-400 text-sm leading-relaxed">
-                        <div class="pb-5">Absolutely! We are a fully remote team and work with clients across India and internationally. All communication, deliverables and project management happen online — making geography a non-issue.</div>
+                    <div class="faq-answer text-gray-400 mt-4 text-sm leading-relaxed">
+                        Absolutely! We are a fully remote team and work with clients across India and internationally. All communication, deliverables and project management happen online — making geography a non-issue.
                     </div>
                 </div>
 
-                <div class="glass rounded-xl overflow-hidden border border-white/10">
-                    <button class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-white/5 transition-colors" onclick="toggleFaq(this)">
+                <div class="faq-item py-6">
+                    <button class="w-full flex justify-between items-center text-left" onclick="toggleFaq(this)">
                         <span class="font-semibold text-lg text-white">How long does a typical project take?</span>
-                        <i class="fas fa-plus text-gold-400 transition-transform duration-300"></i>
+                        <i class="fas fa-plus gold-text transition-transform"></i>
                     </button>
-                    <div class="faq-content px-6 text-gray-400 text-sm leading-relaxed">
-                        <div class="pb-5">Timelines vary by project scope. A logo design typically takes 5–7 business days; a website may take 3–6 weeks. During our initial consultation we'll define a clear timeline with key milestones and deliverables.</div>
+                    <div class="faq-answer text-gray-400 mt-4 text-sm leading-relaxed">
+                        Timelines vary by project scope. A logo design typically takes 5–7 business days; a website may take 3–6 weeks. During our initial consultation we'll define a clear timeline with key milestones and deliverables.
                     </div>
                 </div>
 
-                <div class="glass rounded-xl overflow-hidden border border-white/10">
-                    <button class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-white/5 transition-colors" onclick="toggleFaq(this)">
-                        <span class="font-semibold text-lg text-white">How is pricing determined?</span>
-                        <i class="fas fa-plus text-gold-400 transition-transform duration-300"></i>
+                <div class="faq-item py-6">
+                    <button class="w-full flex justify-between items-center text-left" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg text-white">How do I apply for the internship program?</span>
+                        <i class="fas fa-plus gold-text transition-transform"></i>
                     </button>
-                    <div class="faq-content px-6 text-gray-400 text-sm leading-relaxed">
-                        <div class="pb-5">Pricing is project-based and depends on scope, complexity and timeline. After a free consultation, we provide a transparent, detailed proposal with no hidden costs. We're committed to delivering exceptional value for your investment.</div>
+                    <div class="faq-answer text-gray-400 mt-4 text-sm leading-relaxed">
+                        Send an email to Hr@nxelite.in with the subject line "Internship Application", along with your résumé and a brief note on your area of interest. Our team will get back to you within 48 hours.
+                    </div>
+                </div>
+
+                <div class="faq-item py-6">
+                    <button class="w-full flex justify-between items-center text-left" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg text-white">How is pricing determined?</span>
+                        <i class="fas fa-plus gold-text transition-transform"></i>
+                    </button>
+                    <div class="faq-answer text-gray-400 mt-4 text-sm leading-relaxed">
+                        Pricing is project-based and depends on scope, complexity and timeline. After a free consultation, we provide a transparent, detailed proposal with no hidden costs. We're committed to delivering exceptional value for your investment.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <div class="section-divider"></div>
+
     <!-- CTA Section -->
-    <section id="contact" class="py-24 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-gold-400/10 via-purple-500/10 to-blue-500/10"></div>
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 reveal">
-            <h2 class="font-display font-bold text-4xl md:text-6xl mb-6">Ready to Transform Your <span class="text-gradient">Digital Presence</span>?</h2>
-            <p class="text-xl text-gray-400 mb-8">Let's build something extraordinary together. Start with a free consultation.</p>
+    <section id="contact" class="py-20 bg-dark-900">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-display font-bold text-4xl md:text-5xl mb-6">Ready to Transform Your <span class="gold-text">Digital Presence</span>?</h2>
+            <p class="text-gray-400 text-lg mb-8">Let's build something extraordinary together. Start with a free consultation.</p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <a href="mailto:contact@nxelite.in" class="btn-gradient px-8 py-4 rounded-full text-lg inline-flex items-center justify-center gap-2">
+                <a href="mailto:contact@nxelite.in" class="btn-primary px-8 py-4 rounded inline-flex items-center justify-center gap-2">
                     <i class="fas fa-envelope"></i> Email Us
                 </a>
-                <a href="tel:+919999999999" class="btn-outline-gradient px-8 py-4 rounded-full text-lg inline-flex items-center justify-center gap-2">
+                <a href="tel:+919999999999" class="btn-outline px-8 py-4 rounded inline-flex items-center justify-center gap-2">
                     <i class="fas fa-phone"></i> Call Now
                 </a>
             </div>
 
-            <div class="glass rounded-2xl p-8 max-w-2xl mx-auto border border-white/10">
+            <div class="bg-dark-800 border border-white/10 rounded-xl p-8 max-w-2xl mx-auto">
                 <div class="grid md:grid-cols-2 gap-6 text-left">
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Email</p>
-                        <p class="text-white font-semibold">Hr@nxelite.in</p>
+                        <p class="text-white">Hr@nxelite.in</p>
                     </div>
                     <div>
                         <p class="text-gray-500 text-sm mb-1">Location</p>
-                        <p class="text-white font-semibold">Remote-First, India</p>
+                        <p class="text-white">Remote-First, India</p>
                     </div>
                 </div>
             </div>
@@ -793,11 +638,11 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-12 glass-strong">
+    <footer class="bg-dark-800 border-t border-white/10 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div class="col-span-2">
-                    <img src="https://www.nxelite.in/header.png" alt="NxElite" class="h-10 w-auto mb-4 drop-shadow-[0_0_10px_rgba(251,191,36,0.3)]">
+                    <img src="https://www.nxelite.in/header.png" alt="NxElite" class="h-10 w-auto mb-4">
                     <p class="text-gray-400 text-sm max-w-sm">Empowering brands with technology and design. Remote-first IT solutions for the modern world.</p>
                 </div>
                 
@@ -813,14 +658,14 @@
 
                 <div>
                     <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Connect</h4>
-                    <div class="flex gap-3">
-                        <a href="#" class="w-10 h-10 rounded-lg glass flex items-center justify-center hover:border-gold-400/50 hover:text-gold-400 transition-all">
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-dark-900 rounded-lg flex items-center justify-center border border-white/10 hover:border-gold-400/50 hover:text-gold-400 transition-all">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-lg glass flex items-center justify-center hover:border-gold-400/50 hover:text-gold-400 transition-all">
+                        <a href="#" class="w-10 h-10 bg-dark-900 rounded-lg flex items-center justify-center border border-white/10 hover:border-gold-400/50 hover:text-gold-400 transition-all">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-lg glass flex items-center justify-center hover:border-gold-400/50 hover:text-gold-400 transition-all">
+                        <a href="#" class="w-10 h-10 bg-dark-900 rounded-lg flex items-center justify-center border border-white/10 hover:border-gold-400/50 hover:text-gold-400 transition-all">
                             <i class="fab fa-instagram"></i>
                         </a>
                     </div>
@@ -829,7 +674,7 @@
             
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-500 text-sm">&copy; 2024 NxElite IT Solutions. All rights reserved.</p>
-                <p class="text-gray-600 text-sm mt-2 md:mt-0">Crafted with <i class="fas fa-heart text-red-500 mx-1"></i> in India</p>
+                <p class="text-gray-600 text-sm mt-2 md:mt-0">Crafted with precision in India</p>
             </div>
         </div>
     </footer>
@@ -843,57 +688,26 @@
 
         // FAQ Toggle
         function toggleFaq(button) {
-            const content = button.nextElementSibling;
+            const answer = button.nextElementSibling;
             const icon = button.querySelector('i');
             
-            if (content.classList.contains('active')) {
-                content.classList.remove('active');
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
                 icon.classList.remove('fa-minus');
                 icon.classList.add('fa-plus');
-                icon.style.transform = 'rotate(0deg)';
             } else {
                 // Close all others
-                document.querySelectorAll('.faq-content').forEach(a => a.classList.remove('active'));
+                document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('active'));
                 document.querySelectorAll('.faq-item i').forEach(i => {
                     i.classList.remove('fa-minus');
                     i.classList.add('fa-plus');
-                    i.style.transform = 'rotate(0deg)';
                 });
                 
-                content.classList.add('active');
+                answer.classList.add('active');
                 icon.classList.remove('fa-plus');
                 icon.classList.add('fa-minus');
-                icon.style.transform = 'rotate(180deg)';
             }
         }
-
-        // Scroll Reveal Animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Navbar Scroll Effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(5, 5, 5, 0.95)';
-                navbar.style.boxShadow = '0 10px 40px -10px rgba(0,0,0,0.5)';
-            } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.05)';
-                navbar.style.boxShadow = 'none';
-            }
-        });
 
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
