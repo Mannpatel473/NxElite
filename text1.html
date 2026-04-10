@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NxElite IT Solutions | Web Development, Design & IT Consulting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f4d03f;
+            --dark: #0a0a0a;
+            --gray: #1a1a1a;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hero-asymmetric {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        @media (max-width: 1024px) {
+            .hero-asymmetric {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .blob-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: morph 8s ease-in-out infinite;
+        }
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+
+        .hand-drawn-border {
+            border: 2px solid var(--gold);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            transition: all 0.3s ease;
+        }
+        .hand-drawn-border:hover {
+            border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+        }
+
+        .imperfect-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .imperfect-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+            transform: rotate(-1deg);
+            opacity: 0.8;
+        }
+
+        .scribble-bg {
+            position: relative;
+            display: inline-block;
+        }
+        .scribble-bg::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -5%;
+            width: 110%;
+            height: 40%;
+            background: rgba(212, 175, 55, 0.15);
+            z-index: -1;
+            transform: rotate(-2deg);
+            border-radius: 4px;
+        }
+
+        .photo-corner {
+            position: relative;
+            background: var(--gray);
+            padding: 1rem;
+        }
+        .photo-corner::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 30px;
+            height: 30px;
+            border-top: 3px solid var(--gold);
+            border-left: 3px solid var(--gold);
+        }
+        .photo-corner::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            width: 30px;
+            height: 30px;
+            border-bottom: 3px solid var(--gold);
+            border-right: 3px solid var(--gold);
+        }
+
+        .sticky-note {
+            background: #2a2a2a;
+            transform: rotate(-2deg);
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .sticky-note:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+        .sticky-note:nth-child(even) {
+            transform: rotate(2deg);
+        }
+        .sticky-note:nth-child(even):hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .tape {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 80px;
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            opacity: 0.6;
+        }
+
+        .btn-rough {
+            background: var(--gold);
+            color: #000;
+            font-weight: 600;
+            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-rough:hover {
+            background: var(--gold-light);
+            clip-path: polygon(2% 0, 98% 0, 100% 100%, 0% 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-rough {
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-weight: 600;
+            clip-path: polygon(2% 0, 98% 0, 100% 100%, 0% 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-outline-rough:hover {
+            background: var(--gold);
+            color: #000;
+            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+        }
+
+        .paper-texture::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .marker-highlight {
+            background: linear-gradient(120deg, transparent 0%, rgba(212, 175, 55, 0.3) 0%, rgba(212, 175, 55, 0.3) 100%, transparent 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 85%;
+            padding: 0 4px;
+        }
+
+        .polaroid {
+            background: #0a0a0a;
+            padding: 1rem 1rem 3rem 1rem;
+            box-shadow: 0 4px 15px rgba(212,175,55,0.63);
+            transform: rotate(-3deg);
+            transition: all 0.3s ease;
+        }
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 10;
+        }
+        .polaroid:nth-child(2) {
+            transform: rotate(2deg) translateY(20px);
+        }
+        .polaroid:nth-child(3) {
+            transform: rotate(-2deg) translateY(-10px);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 6px;
+            border: 3px solid var(--dark);
+        }
+    </style>
+</head>
+<body class="paper-texture">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-[#0a0a0a]/95 backdrop-blur-sm border-b border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center transform -rotate-1 hover:rotate-0 transition-transform">
+                    <img src="https://www.nxelite.in/header.png" alt="NxElite" class="h-10 w-auto">
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-gray-400 hover:text-[#d4af37] transition-colors text-sm uppercase tracking-wider relative group">Services</a>
+                    <a href="#about" class="text-gray-400 hover:text-[#d4af37] transition-colors text-sm uppercase tracking-wider relative group">About</a>
+                    <a href="#internship" class="text-gray-400 hover:text-[#d4af37] transition-colors text-sm uppercase tracking-wider relative group">Internships</a>
+                    <a href="#team" class="text-gray-400 hover:text-[#d4af37] transition-colors text-sm uppercase tracking-wider relative group">Team</a>
+                    <a href="#contact" class="btn-rough px-6 py-2.5 text-sm uppercase tracking-wider">Contact</a>
+                </div>
+
+                <button class="md:hidden text-white text-xl p-2" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#0a0a0a] border-t border-white/10">
+            <div class="px-4 py-6 space-y-4">
+                <a href="#services" class="block py-2 text-gray-400 hover:text-[#d4af37]">Services</a>
+                <a href="#about" class="block py-2 text-gray-400 hover:text-[#d4af37]">About</a>
+                <a href="#internship" class="block py-2 text-gray-400 hover:text-[#d4af37]">Internships</a>
+                <a href="#team" class="block py-2 text-gray-400 hover:text-[#d4af37]">Team</a>
+                <a href="#contact" class="block py-2 text-[#d4af37] font-semibold">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen pt-32 pb-20 overflow-hidden">
+        <div class="absolute top-20 right-0 w-[600px] h-[600px] bg-[#d4af37]/5 blob-shape -z-10"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/5 blob-shape -z-10" style="animation-delay: -4s;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="hero-asymmetric">
+                <div class="space-y-8 reveal">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] rounded-full border border-white/10 transform -rotate-1">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span class="text-sm text-gray-400">Available for new projects</span>
+                    </div>
+                    
+                    <h1 class="font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.1]">
+                        Empowering Brands with<br>
+                        <span class="marker-highlight">Technology</span> & <span class="marker-highlight">Design</span>
+                    </h1>
+                    
+                    <p class="text-gray-400 text-lg md:text-xl max-w-xl leading-relaxed">
+                        We craft digital experiences — from blazing-fast websites and memorable logos to strategic IT consulting and hands-on internships.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#contact" class="btn-rough px-8 py-4 text-lg inline-flex items-center gap-2">
+                            Start Your Project <i class="fas fa-arrow-right text-sm"></i>
+                        </a>
+                        <a href="#services" class="btn-outline-rough px-8 py-4 text-lg inline-flex items-center gap-2">
+                            View Our Work
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="relative reveal" style="transition-delay: 200ms;">
+                    <div class="photo-corner bg-[#1a1a1a] p-6 transform rotate-2">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4 p-4 bg-[#0a0a0a] rounded-lg transform -rotate-1 hover:rotate-0 transition-transform">
+                                <div class="w-12 h-12 rounded-full bg-[#d4af37]/20 flex items-center justify-center text-[#d4af37]">
+                                    <i class="fas fa-code text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">Web Development</p>
+                                    <p class="text-sm text-gray-500">React, Node, WordPress</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 p-4 bg-[#0a0a0a] rounded-lg transform rotate-1 hover:rotate-0 transition-transform">
+                                <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
+                                    <i class="fas fa-paint-brush text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">Brand Design</p>
+                                    <p class="text-sm text-gray-500">Logos, Packaging, Print</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 p-4 bg-[#0a0a0a] rounded-lg transform -rotate-1 hover:rotate-0 transition-transform">
+                                <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                                    <i class="fas fa-lightbulb text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">IT Consulting</p>
+                                    <p class="text-sm text-gray-500">Strategy & Solutions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-20 reveal">
+                <p class="text-sm text-gray-500 uppercase tracking-widest mb-6 scribble-bg inline-block">Technologies we work with:</p>
+                <div class="flex flex-wrap gap-3 mt-4">
+                    <span class="px-4 py-2 bg-[#1a1a1a] rounded-full text-sm border border-white/5 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all transform hover:-translate-y-1">React</span>
+                    <span class="px-4 py-2 bg-[#1a1a1a] rounded-full text-sm border border-white/5 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all transform hover:-translate-y-1" style="transform: rotate(-1deg);">Node.js</span>
+                    <span class="px-4 py-2 bg-[#1a1a1a] rounded-full text-sm border border-white/5 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all transform hover:-translate-y-1" style="transform: rotate(1deg);">WordPress</span>
+                    <span class="px-4 py-2 bg-[#1a1a1a] rounded-full text-sm border border-white/5 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all transform hover:-translate-y-1">PHP</span>
+                    <span class="px-4 py-2 bg-[#1a1a1a] rounded-full text-sm border border-white/5 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all transform hover:-translate-y-1" style="transform: rotate(-2deg);">Adobe Suite</span>
+                    <span class="px-4 py-2 bg-[#1a1a1a] rounded-full text-sm border border-white/5 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all transform hover:-translate-y-1" style="transform: rotate(1deg);">Figma</span>
+                    <span class="px-4 py-2 bg-[#1a1a1a] rounded-full text-sm border border-white/5 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all transform hover:-translate-y-1">AWS</span>
+                    <span class="px-4 py-2 bg-[#1a1a1a] rounded-full text-sm border border-white/5 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all transform hover:-translate-y-1" style="transform: rotate(-1deg);">MySQL</span>
+                    <span class="px-4 py-2 bg-[#1a1a1a] rounded-full text-sm border border-white/5 hover:border-[#d4af37]/50 hover:text-[#d4af37] transition-all transform hover:-translate-y-1">Python</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 reveal">
+                <h2 class="font-display font-bold text-4xl md:text-5xl mb-4">Challenges We <span class="imperfect-underline">Solve</span></h2>
+                <p class="text-gray-400 text-lg max-w-2xl">Three critical pain points we eliminate for growing businesses</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="sticky-note p-8 relative reveal">
+                    <div class="tape"></div>
+                    <div class="text-6xl font-display font-bold text-[#d4af37]/20 mb-4 transform -rotate-3">01</div>
+                    <h3 class="font-display font-bold text-2xl mb-4">Weak Online Presence?</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">A poorly designed or absent digital footprint costs you clients every single day. We build high-converting websites and compelling brand identities.</p>
+                </div>
+
+                <div class="sticky-note p-8 relative reveal" style="transition-delay: 100ms;">
+                    <div class="tape"></div>
+                    <div class="text-6xl font-display font-bold text-[#d4af37]/20 mb-4 transform rotate-2">02</div>
+                    <h3 class="font-display font-bold text-2xl mb-4">Inconsistent Branding?</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">Scattered visuals and mixed messages erode trust. We create cohesive brand systems that tell a unified story.</p>
+                </div>
+
+                <div class="sticky-note p-8 relative reveal" style="transition-delay: 200ms;">
+                    <div class="tape"></div>
+                    <div class="text-6xl font-display font-bold text-[#d4af37]/20 mb-4 transform -rotate-2">03</div>
+                    <h3 class="font-display font-bold text-2xl mb-4">Technology Gaps?</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">Legacy processes slow your growth. Our IT consulting modernises your tech stack for confident scaling.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-[#0f0f0f] relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 reveal">
+                <span class="text-[#d4af37] font-semibold tracking-wider uppercase text-sm scribble-bg inline-block px-2">Our Expertise</span>
+                <h2 class="font-display font-bold text-4xl md:text-5xl mt-4">Services We <span class="imperfect-underline">Deliver</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="hand-drawn-border p-8 bg-[#0a0a0a] reveal group">
+                    <div class="w-14 h-14 rounded-full bg-[#d4af37]/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-laptop-code text-2xl text-[#d4af37]"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl mb-3">Web Development</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Custom websites, web apps and e-commerce using React, Next.js, Node.js and WordPress.</p>
+                </div>
+
+                <div class="hand-drawn-border p-8 bg-[#0a0a0a] reveal group" style="transition-delay: 50ms;">
+                    <div class="w-14 h-14 rounded-full bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-pen-nib text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl mb-3">Logo Design</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Memorable, scalable logos that capture your brand’s essence across all platforms.</p>
+                </div>
+
+                <div class="hand-drawn-border p-8 bg-[#0a0a0a] reveal group" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 rounded-full bg-pink-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-file-alt text-2xl text-pink-400"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl mb-3">Brochure Design</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Print-ready and digital brochures with compelling visuals and clear messaging.</p>
+                </div>
+
+                <div class="hand-drawn-border p-8 bg-[#0a0a0a] reveal group" style="transition-delay: 150ms;">
+                    <div class="w-14 h-14 rounded-full bg-orange-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-box text-2xl text-orange-400"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl mb-3">Packaging & Printing</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Eye-catching packaging, labels, stickers, and premium print materials.</p>
+                </div>
+
+                <div class="hand-drawn-border p-8 bg-[#0a0a0a] reveal group" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 rounded-full bg-cyan-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-id-card text-2xl text-cyan-400"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl mb-3">Business Card Design</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Premium business cards — physical and digital — that make a lasting first impression.</p>
+                </div>
+
+                <div class="hand-drawn-border p-8 bg-[#0a0a0a] reveal group" style="transition-delay: 250ms;">
+                    <div class="w-14 h-14 rounded-full bg-green-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-lightbulb text-2xl text-green-400"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl mb-3">IT Consulting</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Technology strategy, digital transformation, and hands-on implementation support.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center reveal">
+                <div class="inline-flex items-center gap-3 px-6 py-3 bg-[#1a1a1a] rounded-full border border-[#d4af37]/30 transform -rotate-1">
+                    <span class="text-white font-medium">Free Consultation Available</span>
+                    <span class="text-gray-500 text-sm">— No commitment</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-start">
+                <div class="space-y-8 reveal">
+                    <div>
+                        <span class="text-[#d4af37] font-semibold tracking-wider uppercase text-sm scribble-bg inline-block px-2">Our Approach</span>
+                        <h2 class="font-display font-bold text-4xl md:text-5xl mt-4">About <span class="imperfect-underline">NxElite</span></h2>
+                    </div>
+                    
+                    <p class="text-gray-400 text-lg leading-relaxed">
+                        NxElite IT Solutions is a remote-first digital agency dedicated to empowering businesses through cutting-edge technology and compelling design.
+                    </p>
+                    
+                    <p class="text-gray-400 leading-relaxed">
+                        We combine web development, UI/UX design, brand strategy, and IT consulting to deliver seamless end-to-end solutions.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-start gap-4 p-4 bg-[#1a1a1a] rounded-lg transform hover:translate-x-2 transition-transform">
+                            <div class="w-6 h-6 rounded-full bg-[#d4af37] flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check text-black text-xs"></i>
+                            </div>
+                            <span class="text-gray-300">Remote-first with global delivery</span>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-[#1a1a1a] rounded-lg transform hover:translate-x-2 transition-transform">
+                            <div class="w-6 h-6 rounded-full bg-[#d4af37] flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check text-black text-xs"></i>
+                            </div>
+                            <span class="text-gray-300">Transparent process with clear milestones</span>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-[#1a1a1a] rounded-lg transform hover:translate-x-2 transition-transform">
+                            <div class="w-6 h-6 rounded-full bg-[#d4af37] flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check text-black text-xs"></i>
+                            </div>
+                            <span class="text-gray-300">Design + Development + Strategy under one roof</span>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-[#1a1a1a] rounded-lg transform hover:translate-x-2 transition-transform">
+                            <div class="w-6 h-6 rounded-full bg-[#d4af37] flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <i class="fas fa-check text-black text-xs"></i>
+                            </div>
+                            <span class="text-gray-300">Dedicated internship program for students</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative reveal" style="transition-delay: 200ms;">
+                    <div class="photo-corner bg-[#1a1a1a] p-8 transform rotate-1">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center p-6 bg-[#0a0a0a] rounded transform -rotate-2 hover:rotate-0 transition-transform">
+                                <div class="text-4xl font-display font-bold text-[#d4af37] mb-2">50+</div>
+                                <div class="text-gray-400 text-sm">Projects Delivered</div>
+                            </div>
+                            <div class="text-center p-6 bg-[#0a0a0a] rounded transform rotate-2 hover:rotate-0 transition-transform">
+                                <div class="text-4xl font-display font-bold text-[#d4af37] mb-2">3+</div>
+                                <div class="text-gray-400 text-sm">Years Experience</div>
+                            </div>
+                            <div class="text-center p-6 bg-[#0a0a0a] rounded transform rotate-1 hover:rotate-0 transition-transform">
+                                <div class="text-4xl font-display font-bold text-[#d4af37] mb-2">100%</div>
+                                <div class="text-gray-400 text-sm">Remote Team</div>
+                            </div>
+                            <div class="text-center p-6 bg-[#0a0a0a] rounded transform -rotate-1 hover:rotate-0 transition-transform">
+                                <div class="text-4xl font-display font-bold text-[#d4af37] mb-2">24/7</div>
+                                <div class="text-gray-400 text-sm">Support</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Internship Section -->
+    <section id="internship" class="py-24 bg-[#0f0f0f] relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 reveal">
+                <span class="text-[#d4af37] font-semibold tracking-wider uppercase text-sm scribble-bg inline-block px-2">Career Growth</span>
+                <h2 class="font-display font-bold text-4xl md:text-5xl mt-4">Work With <span class="imperfect-underline">Us</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="sticky-note p-8 text-center reveal">
+                    <div class="tape"></div>
+                    <div class="w-16 h-16 mx-auto rounded-full bg-blue-500/10 flex items-center justify-center mb-6 border border-blue-500/20">
+                        <i class="fas fa-laptop-code text-2xl text-blue-400"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl mb-3">Web Development</h3>
+                    <p class="text-gray-400 text-sm">Work on live projects using React, Node.js, PHP and modern web technologies.</p>
+                </div>
+
+                <div class="sticky-note p-8 text-center reveal" style="transition-delay: 100ms;">
+                    <div class="tape"></div>
+                    <div class="w-16 h-16 mx-auto rounded-full bg-purple-500/10 flex items-center justify-center mb-6 border border-purple-500/20">
+                        <i class="fas fa-palette text-2xl text-purple-400"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl mb-3">Graphic Design</h3>
+                    <p class="text-gray-400 text-sm">Master Adobe Photoshop, Illustrator, and Figma with real client projects.</p>
+                </div>
+
+                <div class="sticky-note p-8 text-center reveal" style="transition-delay: 200ms;">
+                    <div class="tape"></div>
+                    <div class="w-16 h-16 mx-auto rounded-full bg-green-500/10 flex items-center justify-center mb-6 border border-green-500/20">
+                        <i class="fas fa-chart-line text-2xl text-green-400"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl mb-3">IT Consulting</h3>
+                    <p class="text-gray-400 text-sm">Learn professional consulting, strategy, and client communication skills.</p>
+                </div>
+            </div>
+
+            <div class="hand-drawn-border p-8 md:p-12 bg-[#0a0a0a] reveal">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="font-display font-bold text-2xl mb-6 marker-highlight inline-block">Program Highlights</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-4 p-3 bg-[#1a1a1a] rounded transform hover:translate-x-2 transition-transform">
+                                <i class="fas fa-clock text-[#d4af37] w-5"></i>
+                                <span class="text-gray-300 text-sm">Duration: 1 – 3 months (flexible)</span>
+                            </li>
+                            <li class="flex items-center gap-4 p-3 bg-[#1a1a1a] rounded transform hover:translate-x-2 transition-transform">
+                                <i class="fas fa-globe text-[#d4af37] w-5"></i>
+                                <span class="text-gray-300 text-sm">100% Remote — work from anywhere in India</span>
+                            </li>
+                            <li class="flex items-center gap-4 p-3 bg-[#1a1a1a] rounded transform hover:translate-x-2 transition-transform">
+                                <i class="fas fa-project-diagram text-[#d4af37] w-5"></i>
+                                <span class="text-gray-300 text-sm">Live project experience with real clients</span>
+                            </li>
+                            <li class="flex items-center gap-4 p-3 bg-[#1a1a1a] rounded transform hover:translate-x-2 transition-transform">
+                                <i class="fas fa-user-tie text-[#d4af37] w-5"></i>
+                                <span class="text-gray-300 text-sm">Mentorship from senior professionals</span>
+                            </li>
+                            <li class="flex items-center gap-4 p-3 bg-[#1a1a1a] rounded transform hover:translate-x-2 transition-transform">
+                                <i class="fas fa-certificate text-[#d4af37] w-5"></i>
+                                <span class="text-gray-300 text-sm">Completion certificate issued</span>
+                            </li>
+                            <li class="flex items-center gap-4 p-3 bg-[#1a1a1a] rounded transform hover:translate-x-2 transition-transform">
+                                <i class="fas fa-money-bill-wave text-[#d4af37] w-5"></i>
+                                <span class="text-gray-300 text-sm">Performance-based stipend available</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="text-center md:text-right space-y-6">
+                        <div class="photo-corner inline-block p-6 bg-[#1a1a1a] transform -rotate-2 text-left">
+                            <p class="text-sm text-gray-400 mb-1">Technologies:</p>
+                            <p class="text-white text-sm mb-4">React, Node.js, PHP, Adobe Suite, Figma</p>
+                            <p class="text-sm text-gray-400 mb-1">Open to:</p>
+                            <p class="text-white text-sm">B.Tech, BCA, BCS, Design students & freshers</p>
+                        </div>
+                        <a href="mailto:Hr@nxelite.in?subject=Internship%20Application" class="btn-rough px-8 py-4 inline-flex items-center gap-2">
+                            Apply Now <i class="fas fa-paper-plane"></i>
+                        </a>
+                        <p class="text-sm text-gray-500 mt-4">Send your resume to <span class="text-[#d4af37]">Hr@nxelite.in</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 reveal">
+                <span class="text-[#d4af37] font-semibold tracking-wider uppercase text-sm scribble-bg inline-block px-2">Leadership</span>
+                <h2 class="font-display font-bold text-4xl md:text-5xl mt-4">Meet the <span class="imperfect-underline">Team</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <a href="https://mann.nxelite.in/" target="_blank" class="block">
+                    <div class="polaroid reveal">
+                        <img src="Mann.png" alt="Mann Kachhiya" class="w-full h-64 object-cover rounded mb-4">
+                        <h3 class="font-display font-bold text-2xl mb-1 text-white">Mann Kachhiya</h3>
+                        <p class="text-[#d4af37] font-medium mb-3">Founder</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">Mann founded NxElite with a vision to revolutionize IT solutions in India, leveraging 3+ years of experience to lead the company’s strategic direction. He is strongly supported by Dhruv, whose expertise and IIT Bombay background add invaluable depth to the company’s innovation and growth.</p>
+                    </div>
+                </a>
+
+                <a href="https://dhruv.nxelite.in/" target="_blank" class="block">
+                    <div class="polaroid reveal" style="transition-delay: 100ms;">
+                        <img src="Dhruv.jpeg" alt="Dhruv Kachhiya" class="w-full h-64 object-cover rounded mb-4">
+                        <h3 class="font-display font-bold text-2xl mb-1 text-white">Dhruv Kachhiya</h3>
+                        <p class="text-[#d4af37] font-medium mb-3">CEO</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">Dhruv, an IIT Bombay M.Tech graduate with 8 years of industry experience, plays a pivotal role in driving NxElite’s technical excellence and innovation. His deep expertise and strategic insight significantly strengthen the company’s vision and execution.</p>
+                    </div>
+                </a>
+
+                <div class="polaroid reveal" style="transition-delay: 200ms;">
+                    <div class="w-full h-64 bg-gradient-to-br from-zinc-800 to-zinc-900 rounded mb-4 flex items-center justify-center text-6xl">
+                        👨‍💻
+                    </div>
+                    <h3 class="font-display font-bold text-2xl mb-1 text-white">Sanket Prajapati</h3>
+                    <p class="text-[#d4af37] font-medium mb-3">CTO</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Sanket leads the technical team, innovating in web development and IT consulting. He ensures cutting-edge technology implementation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-[#0f0f0f]">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 reveal">
+                <span class="text-[#d4af37] font-semibold tracking-wider uppercase text-sm scribble-bg inline-block px-2">FAQ</span>
+                <h2 class="font-display font-bold text-4xl md:text-5xl mt-4">Common <span class="imperfect-underline">Questions</span></h2>
+            </div>
+
+            <div class="space-y-4 reveal">
+                <div class="faq-item py-6 border-b border-gray-700">
+                    <button class="w-full flex justify-between items-center text-left group" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg text-white group-hover:text-[#d4af37] transition-colors">What services does NxElite IT Solutions offer?</span>
+                        <i class="fas fa-plus text-[#d4af37] transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content text-gray-400 mt-4 text-sm leading-relaxed hidden">
+                        We offer Web Development, Logo Design, Brochure Design, Packaging & Printing, Business Card Design, IT Consulting, and a structured Internship Program.
+                    </div>
+                </div>
+
+                <div class="faq-item py-6 border-b border-gray-700">
+                    <button class="w-full flex justify-between items-center text-left group" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg text-white group-hover:text-[#d4af37] transition-colors">Do you work with clients outside India?</span>
+                        <i class="fas fa-plus text-[#d4af37] transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content text-gray-400 mt-4 text-sm leading-relaxed hidden">
+                        Yes! We are a fully remote team and happily work with clients across India and internationally.
+                    </div>
+                </div>
+
+                <div class="faq-item py-6 border-b border-gray-700">
+                    <button class="w-full flex justify-between items-center text-left group" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg text-white group-hover:text-[#d4af37] transition-colors">How long does a typical project take?</span>
+                        <i class="fas fa-plus text-[#d4af37] transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content text-gray-400 mt-4 text-sm leading-relaxed hidden">
+                        Timelines vary: Logo design usually takes 5–7 days, while a full website may take 3–6 weeks. We provide a clear timeline during consultation.
+                    </div>
+                </div>
+
+                <div class="faq-item py-6 border-b border-gray-700">
+                    <button class="w-full flex justify-between items-center text-left group" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-lg text-white group-hover:text-[#d4af37] transition-colors">How is pricing determined?</span>
+                        <i class="fas fa-plus text-[#d4af37] transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content text-gray-400 mt-4 text-sm leading-relaxed hidden">
+                        Pricing is project-based and fully transparent. After a free consultation, we provide a detailed proposal with no hidden costs.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+            <h2 class="font-display font-bold text-4xl md:text-6xl mb-6">Ready to Transform Your <span class="imperfect-underline">Digital Presence</span>?</h2>
+            <p class="text-xl text-gray-400 mb-8">Let's build something extraordinary together. Start with a free consultation.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <a href="mailto:contact@nxelite.in" class="btn-rough px-8 py-4 text-lg inline-flex items-center justify-center gap-2">
+                    <i class="fas fa-envelope"></i> Email Us
+                </a>
+                <a href="tel:+917600978440" class="btn-outline-rough px-8 py-4 text-lg inline-flex items-center justify-center gap-2">
+                    <i class="fas fa-phone"></i> Call Now
+                </a>
+            </div>
+
+            <div class="photo-corner inline-block p-8 bg-[#1a1a1a] max-w-2xl transform rotate-1">
+                <div class="grid md:grid-cols-2 gap-6 text-left">
+                    <div>
+                        <p class="text-gray-500 text-sm mb-1">Email</p>
+                        <p class="text-white font-semibold">contact@nxelite.in</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 text-sm mb-1">Internship Email</p>
+                        <p class="text-white font-semibold">Hr@nxelite.in</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 text-sm mb-1">Phone</p>
+                        <p class="text-white font-semibold">+91 76009 78440</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 text-sm mb-1">Location</p>
+                        <p class="text-white font-semibold">Remote-First, India</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12 bg-[#0a0a0a]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-2">
+                    <img src="https://www.nxelite.in/header.png" alt="NxElite" class="h-10 w-auto mb-4 opacity-80">
+                    <p class="text-gray-400 text-sm max-w-sm">Next-Level IT. Elite Solutions for a Smarter Tomorrow.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Services</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#services" class="hover:text-[#d4af37] transition-colors">Web Development</a></li>
+                        <li><a href="#services" class="hover:text-[#d4af37] transition-colors">Logo Design</a></li>
+                        <li><a href="#services" class="hover:text-[#d4af37] transition-colors">IT Consulting</a></li>
+                        <li><a href="#internship" class="hover:text-[#d4af37] transition-colors">Internships</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-white mb-4 text-sm uppercase tracking-wider">Connect</h4>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-[#1a1a1a] rounded flex items-center justify-center hover:bg-[#d4af37] hover:text-black transition-all transform hover:-translate-y-1">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-[#1a1a1a] rounded flex items-center justify-center hover:bg-[#d4af37] hover:text-black transition-all transform hover:-translate-y-1">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-[#1a1a1a] rounded flex items-center justify-center hover:bg-[#d4af37] hover:text-black transition-all transform hover:-translate-y-1">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">&copy; 2026 NxElite IT Solutions. All rights reserved.</p>
+                <p class="text-gray-600 text-sm mt-2 md:mt-0">Made with passion in India</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-content').forEach(c => {
+                if (c !== content) c.classList.add('hidden');
+            });
+            document.querySelectorAll('.faq-item i').forEach(i => {
+                if (i !== icon) i.classList.replace('fa-minus', 'fa-plus');
+            });
+
+            content.classList.toggle('hidden');
+            if (content.classList.contains('hidden')) {
+                icon.classList.replace('fa-minus', 'fa-plus');
+            } else {
+                icon.classList.replace('fa-plus', 'fa-minus');
+            }
+        }
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
