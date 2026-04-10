@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | NxElite IT Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f4d03f;
+            --dark: #0a0a0a;
+            --gray: #1a1a1a;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .paper-texture {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .paper-texture::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .blob-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: morph 8s ease-in-out infinite;
+            filter: blur(6px);
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+
+        .scribble-bg {
+            position: relative;
+            display: inline-block;
+        }
+
+        .scribble-bg::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -5%;
+            width: 110%;
+            height: 40%;
+            background: rgba(212, 175, 55, 0.15);
+            z-index: -1;
+            transform: rotate(-2deg);
+            border-radius: 4px;
+        }
+
+        .imperfect-underline {
+            position: relative;
+            display: inline-block;
+        }
+
+        .imperfect-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+            transform: rotate(-1deg);
+            opacity: 0.9;
+        }
+
+        .marker-highlight {
+            background: linear-gradient(120deg, transparent 0%, rgba(212, 175, 55, 0.28) 0%, rgba(212, 175, 55, 0.28) 100%, transparent 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 42%;
+            background-position: 0 85%;
+            padding: 0 4px;
+        }
+
+        .photo-corner {
+            position: relative;
+            background: var(--gray);
+            padding: 1rem;
+        }
+
+        .photo-corner::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            width: 34px;
+            height: 34px;
+            border-top: 3px solid var(--gold);
+            border-left: 3px solid var(--gold);
+        }
+
+        .photo-corner::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            width: 34px;
+            height: 34px;
+            border-bottom: 3px solid var(--gold);
+            border-right: 3px solid var(--gold);
+        }
+
+        .hand-drawn-border {
+            border: 2px solid var(--gold);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            transition: all 0.3s ease;
+        }
+
+        .hand-drawn-border:hover {
+            border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+        }
+
+        .btn-rough {
+            background: var(--gold);
+            color: #000;
+            font-weight: 600;
+            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-rough:hover {
+            background: var(--gold-light);
+            clip-path: polygon(2% 0, 98% 0, 100% 100%, 0% 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-rough {
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-weight: 600;
+            clip-path: polygon(2% 0, 98% 0, 100% 100%, 0% 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-rough:hover {
+            background: var(--gold);
+            color: #000;
+            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+        }
+
+        .sticky-note {
+            background: #181818;
+            transform: rotate(-2deg);
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.35);
+            transition: transform 0.3s ease;
+        }
+
+        .sticky-note:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .sticky-note:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .sticky-note:nth-child(even):hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .tape {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 82px;
+            height: 28px;
+            background: rgba(255,255,255,0.1);
+            opacity: 0.6;
+        }
+
+        .error-number {
+            font-size: clamp(5rem, 18vw, 12rem);
+            line-height: 0.9;
+            letter-spacing: -0.06em;
+            text-shadow: 0 0 25px rgba(212,175,55,0.15);
+        }
+
+        .float-card {
+            transform: rotate(-2deg);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .float-card:hover {
+            transform: rotate(0deg) translateY(-4px);
+            box-shadow: 0 12px 35px rgba(212,175,55,0.12);
+        }
+
+        .doodle-ring {
+            position: absolute;
+            border: 2px dashed rgba(212,175,55,0.25);
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="paper-texture">
+    <div class="absolute top-16 right-[-100px] w-[340px] h-[340px] bg-[#d4af37]/8 blob-shape -z-10"></div>
+    <div class="absolute bottom-10 left-[-80px] w-[280px] h-[280px] bg-purple-500/8 blob-shape -z-10" style="animation-delay:-4s;"></div>
+    <div class="doodle-ring w-44 h-44 top-24 left-[8%] -z-10"></div>
+    <div class="doodle-ring w-24 h-24 bottom-28 right-[12%] -z-10"></div>
+
+    <header class="w-full border-b border-white/5 bg-[#0a0a0a]/90 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3 group">
+                <img src="https://www.nxelite.in/header.png" alt="NxElite" class="h-10 w-auto opacity-90 group-hover:opacity-100 transition-opacity">
+            </a>
+            <a href="/" class="text-sm uppercase tracking-[0.2em] text-gray-400 hover:text-[#d4af37] transition-colors">Back to Home</a>
+        </div>
+    </header>
+
+    <main class="relative min-h-[calc(100vh-80px)] flex items-center">
+        <section class="w-full py-20 lg:py-28">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-14 items-center">
+                    <div>
+                        <span class="text-[#d4af37] font-semibold tracking-wider uppercase text-sm scribble-bg inline-block px-2 mb-6">Oops, wrong turn</span>
+                        <div class="font-display font-bold error-number text-white mb-5">
+                            4<span class="marker-highlight">0</span>4
+                        </div>
+                        <h1 class="font-display font-bold text-4xl md:text-6xl leading-[1.05] mb-6">
+                            This page seems to have <span class="imperfect-underline">gone missing</span>.
+                        </h1>
+                        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mb-10">
+                            The link may be broken, the page may have moved, or the URL might be mistyped. Let’s get you back to something useful.
+                        </p>
+
+                        <div class="flex flex-wrap gap-4 mb-10">
+                            <a href="/" class="btn-rough px-8 py-4 text-base inline-flex items-center gap-3">
+                                <i class="fas fa-house"></i>
+                                Go to Homepage
+                            </a>
+                            <a href="index.html#contact" class="btn-outline-rough px-8 py-4 text-base inline-flex items-center gap-3">
+                                <i class="fas fa-paper-plane"></i>
+                                Contact Us
+                            </a>
+                        </div>
+
+                        <div class="grid sm:grid-cols-3 gap-4 max-w-3xl">
+                            <div class="sticky-note rounded-xl p-5 border border-white/5">
+                                <p class="text-[#d4af37] text-xs uppercase tracking-[0.2em] mb-2">Try this</p>
+                                <p class="text-white font-semibold">Check the URL</p>
+                                <p class="text-gray-400 text-sm mt-2">A tiny typo can send you somewhere that doesn’t exist.</p>
+                            </div>
+                            <div class="sticky-note rounded-xl p-5 border border-white/5">
+                                <p class="text-[#d4af37] text-xs uppercase tracking-[0.2em] mb-2">Or this</p>
+                                <p class="text-white font-semibold">Visit Services</p>
+                                <p class="text-gray-400 text-sm mt-2">Explore web development, design, and IT consulting.</p>
+                            </div>
+                            <div class="sticky-note rounded-xl p-5 border border-white/5">
+                                <p class="text-[#d4af37] text-xs uppercase tracking-[0.2em] mb-2">Need help?</p>
+                                <p class="text-white font-semibold">Reach NxElite</p>
+                                <p class="text-gray-400 text-sm mt-2">We can point you to the right page fast.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="photo-corner p-6 sm:p-8 float-card rounded-2xl bg-[#121212] border border-white/5">
+                            <div class="tape"></div>
+                            <div class="hand-drawn-border rounded-[28px] p-8 bg-[#0d0d0d]">
+                                <div class="flex items-start justify-between gap-4 mb-8">
+                                    <div>
+                                        <p class="text-gray-500 text-xs uppercase tracking-[0.2em] mb-2">Error Report</p>
+                                        <h2 class="font-display text-2xl md:text-3xl font-bold">Page Not Found</h2>
+                                    </div>
+                                    <div class="w-14 h-14 rounded-full bg-[#d4af37]/10 text-[#d4af37] flex items-center justify-center text-2xl shrink-0">
+                                        <i class="fas fa-compass"></i>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-4 p-4 bg-[#151515] rounded-xl border border-white/5">
+                                        <div class="w-11 h-11 rounded-full bg-[#d4af37]/10 text-[#d4af37] flex items-center justify-center">
+                                            <i class="fas fa-link-slash"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-white">Broken or outdated link</p>
+                                            <p class="text-sm text-gray-500">The URL may no longer point to an active page.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-4 p-4 bg-[#151515] rounded-xl border border-white/5">
+                                        <div class="w-11 h-11 rounded-full bg-purple-500/10 text-purple-400 flex items-center justify-center">
+                                            <i class="fas fa-pencil"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-white">Mistyped address</p>
+                                            <p class="text-sm text-gray-500">Double-check the spelling in the browser bar.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-4 p-4 bg-[#151515] rounded-xl border border-white/5">
+                                        <div class="w-11 h-11 rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+                                            <i class="fas fa-route"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-white">Page moved elsewhere</p>
+                                            <p class="text-sm text-gray-500">Try the homepage or contact page to continue browsing.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap gap-3">
+                                    <a href="/index.html#services" class="text-sm text-gray-400 hover:text-[#d4af37] transition-colors">Services</a>
+                                    <span class="text-gray-700">•</span>
+                                    <a href="/index.html#about" class="text-sm text-gray-400 hover:text-[#d4af37] transition-colors">About</a>
+                                    <span class="text-gray-700">•</span>
+                                    <a href="/index.html#internship" class="text-sm text-gray-400 hover:text-[#d4af37] transition-colors">Internships</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
