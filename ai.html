@@ -435,7 +435,7 @@
                         <div style="width:32px; height:32px; background:linear-gradient(135deg,var(--accent),#F0A030); border-radius:8px; display:flex; align-items:center; justify-content:center;">
                             <i class="fas fa-bolt" style="color:#fff; font-size:13px;"></i>
                         </div>
-                        <span style="font-size:1.15rem; font-weight:700; letter-spacing:-0.5px;">Nova</span>
+                        <span style="font-size:1.15rem; font-weight:700; letter-spacing:-0.5px;">NxElite</span>
                     </div>
                     <button class="icon-btn" onclick="toggleSidebar()" aria-label="Close sidebar">
                         <i class="fas fa-xmark" style="font-size:15px;"></i>
@@ -456,7 +456,7 @@
 
             <!-- Footer -->
             <div style="padding:12px 18px; border-top:1px solid var(--border); font-size:0.72rem; color:var(--muted); text-align:center;">
-                Powered by Pollinations AI &mdash; Free &amp; Open
+                Powered by NxElite AI &mdash; Free &amp; Open
             </div>
         </aside>
 
@@ -470,17 +470,17 @@
                     </button>
                     <div>
                         <div id="headerTitle" style="font-size:0.95rem; font-weight:600;">New Conversation</div>
-                        <div style="font-size:0.73rem; color:var(--muted);">Free AI Chat &mdash; No API key needed</div>
+                        <!--div style="font-size:0.73rem; color:var(--muted);">Free AI Chat &mdash; No API key needed</div-->
                     </div>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <select id="modelSelect" class="model-sel" aria-label="Select AI model">
+                    <!--select id="modelSelect" class="model-sel" aria-label="Select AI model">
                         <option value="openai">GPT-4o Mini</option>
                         <option value="mistral">Mistral</option>
                         <option value="llama">Llama</option>
                         <option value="deepseek">DeepSeek</option>
                         <option value="qwen">Qwen</option>
-                    </select>
+                </select-->
                     <button class="icon-btn-outline" onclick="clearChat()" title="Clear current chat" aria-label="Clear chat">
                         <i class="fas fa-trash-can" style="font-size:12px;"></i>
                     </button>
@@ -493,7 +493,7 @@
             <!-- Input -->
             <div class="input-area">
                 <div class="input-wrap">
-                    <textarea id="msgInput" rows="1" placeholder="Ask Nova anything..." aria-label="Message input" onkeydown="handleKey(event)" oninput="onInputChange(this)"></textarea>
+                    <textarea id="msgInput" rows="1" placeholder="Ask NxElite anything..." aria-label="Message input" onkeydown="handleKey(event)" oninput="onInputChange(this)"></textarea>
                     <button id="sendBtn" class="send-btn" onclick="sendMessage()" disabled aria-label="Send message">
                         <i class="fas fa-arrow-up" style="font-size:14px;"></i>
                     </button>
@@ -544,12 +544,12 @@
         /* ── LocalStorage persistence ── */
         function loadState() {
             try {
-                const d = JSON.parse(localStorage.getItem('nova_data'));
+                const d = JSON.parse(localStorage.getItem('NxElite_data'));
                 if (d) { convos = d.convos || []; activeId = d.activeId || null; }
             } catch(e) { /* fresh start */ }
         }
         function saveState() {
-            try { localStorage.setItem('nova_data', JSON.stringify({ convos, activeId })); } catch(e) {}
+            try { localStorage.setItem('NxElite_data', JSON.stringify({ convos, activeId })); } catch(e) {}
         }
 
         /* ── Helpers ── */
@@ -712,7 +712,7 @@
 
             try {
                 const apiMsgs = [
-                    { role: 'system', content: 'You are Nova, a helpful, knowledgeable, and friendly AI assistant. Provide clear, well-structured responses. Use markdown formatting for code blocks, lists, bold, and emphasis when appropriate. Be concise but thorough.' },
+                    { role: 'system', content: 'You are NxElite, a helpful, knowledgeable, and friendly AI assistant. Provide clear, well-structured responses. Use markdown formatting for code blocks, lists, bold, and emphasis when appropriate. Be concise but thorough.' },
                     ...conv.messages.map(m => ({ role: m.role, content: m.content }))
                 ];
 
@@ -764,7 +764,7 @@
 
             try {
                 const apiMsgs = [
-                    { role: 'system', content: 'You are Nova, a helpful, knowledgeable, and friendly AI assistant. Provide clear, well-structured responses. Use markdown formatting for code blocks, lists, bold, and emphasis when appropriate. Be concise but thorough.' },
+                    { role: 'system', content: 'You are NxElite, a helpful, knowledgeable, and friendly AI assistant. Provide clear, well-structured responses. Use markdown formatting for code blocks, lists, bold, and emphasis when appropriate. Be concise but thorough.' },
                     ...conv.messages.map(m => ({ role: m.role, content: m.content }))
                 ];
                 const res = await fetch('https://text.pollinations.ai/', {
@@ -815,7 +815,7 @@
 
             msgArea.innerHTML = `
                 <div class="welcome">
-                    <div class="welcome-logo">Nova</div>
+                    <div class="welcome-logo">NxElite</div>
                     <p style="color:var(--fg-secondary); margin-bottom:36px; font-size:1.05rem; max-width:440px; line-height:1.65;">
                         Your free AI assistant. Ask anything — coding, science, writing, math, or just a good conversation.
                     </p>
