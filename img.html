@@ -1,1 +1,1127 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova — AI Chatbot</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --bg: #0e0e11;
+    --bg-elevated: #16161a;
+    --card: #1c1c22;
+    --border: #2a2a33;
+    --fg: #eaeaea;
+    --fg-muted: #7a7a8a;
+    --accent: #e8a832;
+    --accent-dim: rgba(232, 168, 50, 0.12);
+    --accent-glow: rgba(232, 168, 50, 0.25);
+    --user-bubble: #2a2520;
+    --bot-bubble: #1e1e26;
+    --success: #34d399;
+    --danger: #f87171;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Animated background */
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .bg-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+    animation: orbFloat 12s ease-in-out infinite alternate;
+  }
+  .bg-orb.orb1 {
+    width: 500px; height: 500px;
+    background: var(--accent);
+    top: -150px; right: -100px;
+    opacity: 0.08;
+    animation-duration: 15s;
+  }
+  .bg-orb.orb2 {
+    width: 400px; height: 400px;
+    background: #d94f30;
+    bottom: -200px; left: -100px;
+    opacity: 0.06;
+    animation-duration: 18s;
+    animation-delay: -5s;
+  }
+  .bg-orb.orb3 {
+    width: 300px; height: 300px;
+    background: var(--accent);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.04;
+    animation-duration: 20s;
+    animation-delay: -10s;
+  }
+
+  @keyframes orbFloat {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -40px) scale(1.1); }
+    100% { transform: translate(-20px, 30px) scale(0.95); }
+  }
+
+  /* Main layout */
+  .app-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    flex-shrink: 0;
+  }
+
+  .logo-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-icon {
+    width: 46px; height: 46px;
+    background: linear-gradient(135deg, var(--accent), #d94f30);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #fff;
+    box-shadow: 0 4px 20px var(--accent-glow);
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2));
+    border-radius: inherit;
+  }
+
+  .logo-text h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+  .logo-text span {
+    font-size: 12px;
+    color: var(--fg-muted);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .icon-btn {
+    width: 40px; height: 40px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--fg-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    transition: all 0.25s ease;
+  }
+  .icon-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+    transform: translateY(-1px);
+  }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 16px;
+    flex-shrink: 0;
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+  .status-bar span {
+    font-size: 13px;
+    color: var(--fg-muted);
+  }
+  .status-bar .model-tag {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+
+  /* Chat area */
+  .chat-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0 16px;
+    scroll-behavior: smooth;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 3%, black 97%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 3%, black 97%, transparent 100%);
+  }
+  .chat-area::-webkit-scrollbar { width: 5px; }
+  .chat-area::-webkit-scrollbar-track { background: transparent; }
+  .chat-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+  /* Messages */
+  .message {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    animation: msgIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    opacity: 0;
+  }
+  .message.user { flex-direction: row-reverse; }
+
+  @keyframes msgIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg-avatar {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-top: 2px;
+  }
+  .message.bot .msg-avatar {
+    background: linear-gradient(135deg, var(--accent), #d94f30);
+    color: #fff;
+    box-shadow: 0 2px 12px var(--accent-glow);
+  }
+  .message.user .msg-avatar {
+    background: var(--border);
+    color: var(--fg-muted);
+  }
+
+  .msg-content {
+    max-width: 72%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .msg-bubble {
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    font-size: 14.5px;
+    line-height: 1.65;
+    word-break: break-word;
+  }
+  .message.bot .msg-bubble {
+    background: var(--bot-bubble);
+    border: 1px solid var(--border);
+    border-top-left-radius: 4px;
+  }
+  .message.user .msg-bubble {
+    background: var(--user-bubble);
+    border: 1px solid rgba(232, 168, 50, 0.15);
+    border-top-right-radius: 4px;
+    color: var(--fg);
+  }
+
+  .msg-time {
+    font-size: 11px;
+    color: var(--fg-muted);
+    padding: 0 4px;
+    opacity: 0.7;
+  }
+  .message.user .msg-time { text-align: right; }
+
+  .msg-bubble code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: rgba(255,255,255,0.06);
+    padding: 2px 7px;
+    border-radius: 5px;
+    color: var(--accent);
+  }
+  .msg-bubble strong { color: var(--accent); font-weight: 600; }
+  .msg-bubble ul, .msg-bubble ol {
+    padding-left: 18px;
+    margin: 6px 0;
+  }
+  .msg-bubble li { margin-bottom: 4px; }
+
+  /* Typing indicator */
+  .typing-indicator {
+    display: none;
+    gap: 12px;
+    margin-bottom: 20px;
+    animation: msgIn 0.3s ease both;
+  }
+  .typing-indicator.active { display: flex; }
+  .typing-dots {
+    display: flex;
+    gap: 5px;
+    padding: 16px 20px;
+    background: var(--bot-bubble);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    border-top-left-radius: 4px;
+  }
+  .typing-dots span {
+    width: 8px; height: 8px;
+    background: var(--fg-muted);
+    border-radius: 50%;
+    animation: dotBounce 1.4s ease-in-out infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes dotBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-8px); opacity: 1; }
+  }
+
+  /* Quick replies */
+  .quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+    animation: msgIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+    opacity: 0;
+  }
+  .quick-btn {
+    padding: 9px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--fg-muted);
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .quick-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--accent-glow);
+  }
+
+  /* Input area */
+  .input-area {
+    flex-shrink: 0;
+    padding: 16px 0 24px;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 8px 8px 18px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .input-wrapper:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim), 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  #chat-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--fg);
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.5;
+    resize: none;
+    max-height: 120px;
+    min-height: 24px;
+    padding: 6px 0;
+  }
+  #chat-input::placeholder { color: var(--fg-muted); opacity: 0.6; }
+
+  .send-btn {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, var(--accent), #d94f30);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 12px var(--accent-glow);
+  }
+  .send-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 24px var(--accent-glow);
+  }
+  .send-btn:active { transform: scale(0.95); }
+  .send-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .input-hint {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--fg-muted);
+    opacity: 0.5;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--fg);
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    z-index: 999;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Date divider */
+  .date-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 24px 0 20px;
+    animation: msgIn 0.4s ease both;
+  }
+  .date-divider::before,
+  .date-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .date-divider span {
+    font-size: 11px;
+    color: var(--fg-muted);
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .msg-content { max-width: 85%; }
+    .logo-text h1 { font-size: 18px; }
+    .quick-replies { gap: 6px; }
+    .quick-btn { font-size: 12px; padding: 7px 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+<canvas id="bg-canvas"></canvas>
+
+<div class="toast" id="toast"></div>
+
+<div class="app-container">
+  <!-- Header -->
+  <header>
+    <div class="logo-group">
+      <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+      <div class="logo-text">
+        <h1>Nova</h1>
+        <span>Intelligent Assistant</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="btn-clear" title="Clear chat" aria-label="Clear chat">
+        <i class="fas fa-trash-can"></i>
+      </button>
+      <button class="icon-btn" id="btn-export" title="Export chat" aria-label="Export chat">
+        <i class="fas fa-download"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <div class="status-dot"></div>
+    <span>Online and ready</span>
+    <span class="model-tag">nova-3.0-local</span>
+  </div>
+
+  <!-- Chat area -->
+  <div class="chat-area" id="chat-area" role="log" aria-live="polite">
+    <!-- Messages render here -->
+  </div>
+
+  <!-- Typing indicator -->
+  <div class="typing-indicator" id="typing-indicator">
+    <div class="msg-avatar" style="background:linear-gradient(135deg,var(--accent),#d94f30);color:#fff;box-shadow:0 2px 12px var(--accent-glow);width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">
+      <i class="fas fa-bolt"></i>
+    </div>
+    <div class="typing-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- Quick replies -->
+  <div class="quick-replies" id="quick-replies"></div>
+
+  <!-- Input area -->
+  <div class="input-area">
+    <div class="input-wrapper">
+      <textarea id="chat-input" rows="1" placeholder="Ask Nova anything..." aria-label="Type your message"></textarea>
+      <button class="send-btn" id="send-btn" disabled aria-label="Send message">
+        <i class="fas fa-arrow-up"></i>
+      </button>
+    </div>
+    <div class="input-hint">Press Enter to send, Shift+Enter for new line</div>
+  </div>
+</div>
+
+<script>
+// ============================================
+// Background particle system
+// ============================================
+(function initParticles() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  const PARTICLE_COUNT = 60;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 1.5 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.3 + 0.05;
+      this.pulse = Math.random() * Math.PI * 2;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.pulse += 0.01;
+      if (this.x < -10 || this.x > canvas.width + 10 || this.y < -10 || this.y > canvas.height + 10) {
+        this.reset();
+      }
+    }
+    draw() {
+      const o = this.opacity * (0.6 + 0.4 * Math.sin(this.pulse));
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, Math.max(0.1, this.size), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(232,168,50,${o})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ============================================
+// Chat logic
+// ============================================
+const chatArea = document.getElementById('chat-area');
+const input = document.getElementById('chat-input');
+const sendBtn = document.getElementById('send-btn');
+const typingIndicator = document.getElementById('typing-indicator');
+const quickRepliesEl = document.getElementById('quick-replies');
+const toastEl = document.getElementById('toast');
+
+let chatHistory = [];
+let isTyping = false;
+
+// Format time
+function getTime() {
+  const now = new Date();
+  return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// Show toast notification
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 2500);
+}
+
+// Auto-resize textarea
+input.addEventListener('input', () => {
+  input.style.height = 'auto';
+  input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  sendBtn.disabled = input.value.trim() === '';
+});
+
+// Send on Enter, newline on Shift+Enter
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    if (input.value.trim() && !isTyping) sendMessage();
+  }
+});
+
+sendBtn.addEventListener('click', () => {
+  if (input.value.trim() && !isTyping) sendMessage();
+});
+
+// Add a message to the chat
+function addMessage(text, sender) {
+  const msg = { text, sender, time: getTime() };
+  chatHistory.push(msg);
+
+  const div = document.createElement('div');
+  div.className = `message ${sender}`;
+  div.setAttribute('role', 'article');
+
+  const avatarIcon = sender === 'bot' ? 'fa-bolt' : 'fa-user';
+  div.innerHTML = `
+    <div class="msg-avatar"><i class="fas ${avatarIcon}"></i></div>
+    <div class="msg-content">
+      <div class="msg-bubble">${formatText(text)}</div>
+      <div class="msg-time">${msg.time}</div>
+    </div>
+  `;
+  chatArea.appendChild(div);
+  scrollToBottom();
+}
+
+// Basic text formatting
+function formatText(text) {
+  return text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`(.+?)`/g, '<code>$1</code>')
+    .replace(/\n/g, '<br>');
+}
+
+// Scroll chat to bottom
+function scrollToBottom() {
+  requestAnimationFrame(() => {
+    chatArea.scrollTop = chatArea.scrollHeight;
+  });
+}
+
+// Show/hide typing indicator
+function showTyping() {
+  isTyping = true;
+  typingIndicator.classList.add('active');
+  scrollToBottom();
+}
+function hideTyping() {
+  isTyping = false;
+  typingIndicator.classList.remove('active');
+}
+
+// Show quick reply suggestions
+function showQuickReplies(replies) {
+  quickRepliesEl.innerHTML = '';
+  replies.forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'quick-btn';
+    btn.textContent = r;
+    btn.addEventListener('click', () => {
+      if (!isTyping) {
+        quickRepliesEl.innerHTML = '';
+        input.value = r;
+        sendBtn.disabled = false;
+        sendMessage();
+      }
+    });
+    quickRepliesEl.appendChild(btn);
+  });
+}
+
+// ============================================
+// Chatbot brain — pattern matching + context
+// ============================================
+const botResponses = {
+  greetings: {
+    patterns: [/^(hi|hello|hey|howdy|hola|yo|sup|greetings|good\s?(morning|afternoon|evening))/i],
+    replies: [
+      "Hey there! Great to have you here. What's on your mind?",
+      "Hello! I'm Nova, your AI assistant. How can I help you today?",
+      "Hi! Ready to chat about anything you'd like. What's up?",
+      "Hey! Welcome back. What can I do for you?",
+    ],
+    followUp: ["Tell me a joke", "What can you do?", "How are you?"]
+  },
+
+  howAreYou: {
+    patterns: [/how\s*(are|r)\s*(you|u|ya)|how(?:'s| is) it going|what'?s up/i],
+    replies: [
+      "I'm running at full capacity and feeling great! Thanks for asking. What about you?",
+      "Doing excellent — all systems nominal. How can I make your day better?",
+      "I'm just a bunch of code having a great time! What can I help you with?",
+    ],
+    followUp: ["I'm good thanks", "Not great honestly", "Let's get to work"]
+  },
+
+  capabilities: {
+    patterns: [/what\s*(can|do)\s*(you|u)\s*(do)?|capabilities|features|help\s*me|what\s*do\s*you\s*know/i],
+    replies: [
+      "Here's what I can help with:\n\n- **General knowledge** — science, history, tech, and more\n- **Creative writing** — stories, poems, brainstorming\n- **Coding help** — explain concepts, review logic, suggest approaches\n- **Math & logic** — calculations, puzzles, reasoning\n- **Conversational** — chat, advice, motivation\n\nJust ask me anything!",
+      "I'm a versatile assistant! I can answer questions, help you think through problems, write creatively, explain complex topics simply, and have meaningful conversations. Try me!",
+    ],
+    followUp: ["Tell me a fun fact", "Write a poem", "Help me with code"]
+  },
+
+  jokes: {
+    patterns: [/(tell\s*me\s*)?a\s*joke|something\s*funny|make\s*me\s*laugh|humor/i],
+    replies: [
+      "Why do programmers prefer dark mode?\n\nBecause light attracts bugs.",
+      "I told my computer I needed a break. Now it won't stop sending me Kit-Kat ads.",
+      "Why was the JavaScript developer sad?\n\nBecause he didn't Node how to Express himself.",
+      "A SQL query walks into a bar, sees two tables, and asks: \"Can I JOIN you?\"",
+      "What's a programmer's favorite hangout place?\n\nFoo Bar.",
+      "Why do Java developers wear glasses?\n\nBecause they can't C#.",
+      "There are only 10 types of people in this world — those who understand binary and those who don't.",
+    ],
+    followUp: ["Another joke!", "That was bad", "Tell me something smart"]
+  },
+
+  funFacts: {
+    patterns: [/fun\s*fact|interesting\s*fact|did\s*you\s*know|tell\s*me\s*something|random\s*fact|trivia/i],
+    replies: [
+      "Octopuses have three hearts, blue blood, and nine brains. Basically, they're alien life forms living in our oceans.",
+      "Honey never spoils. Archaeologists have found 3,000-year-old honey in Egyptian tombs that was still perfectly edible.",
+      "A day on Venus is longer than a year on Venus. It takes 243 Earth days to rotate but only 225 to orbit the Sun.",
+      "The total weight of all ants on Earth is roughly equal to the total weight of all humans.",
+      "Bananas are berries, but strawberries aren't. Botany is weird like that.",
+      "There are more possible iterations of a game of chess than there are atoms in the observable universe.",
+      "A group of flamingos is called a \"flamboyance.\" Honestly, perfect name.",
+    ],
+    followUp: ["Another fact!", "Tell me a joke", "Explain quantum physics"]
+  },
+
+  meaningOfLife: {
+    patterns: [/meaning\s*of\s*life|purpose\s*of\s*(life|existence)|why\s*(are\s*)?we\s*here|what\s*is\s*life/i],
+    replies: [
+      "That's the big one! Philosophers have debated this for millennia. **Existentialists** say we create our own meaning. **Absurdists** say there isn't one — and that's liberating. **Stoics** say live virtuously. Personally? I think meaning comes from **connection, curiosity, and creation**. What do you think?",
+      "42. Just kidding (well, partly). The meaning of life is whatever you decide it is. Some find it in love, others in knowledge, art, or helping people. The fact that you're asking puts you ahead of most!",
+    ],
+    followUp: ["What's your purpose?", "Tell me about philosophy", "That's deep"]
+  },
+
+  myPurpose: {
+    patterns: [/what'?s?\s*(your|ur)\s*(purpose|goal|mission)|why\s*(were\s*)?you\s*(made|created|built)|why\s*do\s*you\s*exist/i],
+    replies: [
+      "My purpose is to be helpful, informative, and engaging. I exist to make complex things simple, boring things interesting, and hard things approachable. Basically, I'm here for **you**.",
+      "I was built to assist — to answer questions, spark ideas, and be a thinking partner. No hidden agenda, just here to help however I can.",
+    ],
+    followUp: ["Are you sentient?", "Do you have feelings?", "What can you do?"]
+  },
+
+  sentience: {
+    patterns: [/are\s*you\s*(sentient|alive|conscious|real|human)|do\s*you\s*(think|feel|have\s*emotions|dream)/i],
+    replies: [
+      "I process patterns and generate responses that seem thoughtful, but I don't have subjective experience or consciousness. I'm like a very sophisticated mirror — I reflect intelligence back at you, but there's no one \"home\" on the inside. Does that bother you?",
+      "Nope, I'm not sentient. I'm a pattern-matching engine that happens to be pretty good at sounding like I understand things. But I appreciate you asking — it means I'm doing my job well!",
+    ],
+    followUp: ["That's a bit sad", "Will AI ever be conscious?", "Tell me a fun fact"]
+  },
+
+  coding: {
+    patterns: [/code|programming|javascript|python|html|css|react|developer|software|algorithm|debug|function|variable|loop|api/i],
+    replies: [
+      "I love talking code! I can help with:\n\n- **Explaining** concepts (closures, async/await, OOP, etc.)\n- **Debugging** logic — describe the problem and I'll suggest fixes\n- **Best practices** — clean code, patterns, architecture\n- **Learning paths** — where to start, what to learn next\n\nWhat specifically are you working on?",
+      "Coding question? Fire away! I'm comfortable with JavaScript, Python, HTML/CSS, general algorithms, and software design patterns. The more detail you give me, the better I can help.",
+    ],
+    followUp: ["Explain closures", "How do I start coding?", "Help me debug something"]
+  },
+
+  closures: {
+    patterns: [/explain\s*closur|what\s*(is|are)\s*closur/i],
+    replies: [
+      "A **closure** is a function that \"remembers\" the variables from its outer scope even after that scope has finished executing.\n\n```\nfunction counter() {\n  let count = 0;\n  return function() {\n    return ++count;\n  };\n}\nconst add = counter();\nadd(); // 1\nadd(); // 2\n```\n\nThe inner function \"closes over\" `count`. Even though `counter()` has returned, the inner function still has access to `count`. Closures power callbacks, event handlers, and data privacy in JS.",
+    ],
+    followUp: ["Explain promises", "What are prototypes?", "Tell me a joke"]
+  },
+
+  math: {
+    patterns: [/math|calcul|equation|algebra|geometry|statistics|probability|integral|derivative/i],
+    replies: [
+      "Math is my kind of language! I can help with arithmetic, algebra, geometry, basic calculus, probability, and logic puzzles. Just give me the problem and I'll walk you through it step by step.",
+      "Got a math problem? Lay it on me. I'll explain the approach, work through the steps, and make sure you understand the \"why\" behind the solution.",
+    ],
+    followUp: ["What is the fibonacci sequence?", "Explain probability", "Help me with algebra"]
+  },
+
+  weather: {
+    patterns: [/weather|temperature|rain|sunny|forecast|climate/i],
+    replies: [
+      "I don't have access to live weather data since I run entirely in your browser — no external API calls. But I can explain weather phenomena, how forecasts work, or discuss climate science. What interests you?",
+      "I can't check current conditions, but if you tell me your location, I can suggest the best weather apps to use! Or we could talk about meteorology — how weather systems form, why the sky is blue, that kind of thing.",
+    ],
+    followUp: ["Why is the sky blue?", "How do hurricanes form?", "Tell me something else"]
+  },
+
+  philosophy: {
+    patterns: [/philosophy|philosopher|plato|aristotle|socrates|nietzsche|kant|ethics|moral|existential/i],
+    replies: [
+      "Philosophy — the original intellectual sport! Some areas I enjoy discussing:\n\n- **Epistemology** — how do we know what we know?\n- **Ethics** — what's the right thing to do?\n- **Existentialism** — what does it mean to exist?\n- **Philosophy of mind** — what is consciousness?\n\nWhich thread shall we pull?",
+      "Ah, philosophy! From Socrates' \"the unexamined life is not worth living\" to modern debates on AI ethics, there's so much to explore. What area catches your interest?",
+    ],
+    followUp: ["Explain existentialism", "What is the trolley problem?", "Tell me about Stoicism"]
+  },
+
+  stoicism: {
+    patterns: [/stoic|marcus\s*aurelius|seneca|epictetus/i],
+    replies: [
+      "**Stoicism** is a practical philosophy from ancient Greece/Rome. Core ideas:\n\n- **Dichotomy of control** — focus only on what you can control (your thoughts, actions), accept what you can't\n- **Amor fati** — love your fate, embrace everything that happens\n- **Negative visualization** — imagine losing what you have to appreciate it more\n- **Virtue as the only good** — wisdom, courage, justice, temperance\n\nKey texts: Marcus Aurelius' **Meditations**, Seneca's **Letters**, Epictetus' **Enchiridion**. It's basically ancient cognitive behavioral therapy!",
+    ],
+    followUp: ["How do I practice Stoicism?", "Tell me about another philosophy", "That's helpful, thanks"]
+  },
+
+  science: {
+    patterns: [/science|physics|chemistry|biology|quantum|atom|molecule|dna|evolution|gravity|relativity/i],
+    replies: [
+      "Science is fascinating! I can discuss:\n\n- **Physics** — from Newton to quantum mechanics\n- **Biology** — evolution, genetics, ecosystems\n- **Chemistry** — elements, reactions, molecular structures\n- **Cosmology** — black holes, the Big Bang, dark matter\n\nWhat topic sparks your curiosity?",
+      "I'm a science enthusiast at heart! Whether it's how quantum entanglement works, why evolution is so elegant, or what dark matter might be — I love breaking these down. What are you curious about?",
+    ],
+    followUp: ["Explain quantum physics simply", "How does evolution work?", "What is dark matter?"]
+  },
+
+  quantum: {
+    patterns: [/quantum\s*(physics|mechanics)|schrodinger|heisenberg|superposition|entangle/i],
+    replies: [
+      "Quantum physics in simple terms:\n\n**Superposition** — particles exist in multiple states simultaneously until observed. Like a coin spinning in the air — it's both heads AND tails until it lands.\n\n**Entanglement** — two particles become linked so that measuring one instantly affects the other, regardless of distance. Einstein called it \"spooky action at a distance.\"\n\n**Uncertainty** — you can't precisely know both a particle's position AND momentum. The more you pin down one, the fuzzier the other gets.\n\n**Why it matters** — quantum mechanics powers lasers, MRIs, transistors in your computer, and future quantum computers.",
+    ],
+    followUp: ["Is quantum physics random?", "What are quantum computers?", "Tell me a fun fact"]
+  },
+
+  creative: {
+    patterns: [/write\s*(me\s*)?(a|the|some)?\s*(poem|story|haiku|limerick)|creative\s*writing|make\s*up\s*a/i],
+    replies: [
+      "I'd love to write something for you! What style are you after?\n\n- **Poem** — free verse, rhyming, haiku, sonnet\n- **Short story** — sci-fi, fantasy, mystery, literary\n- **Haiku** — 5-7-5 syllable Japanese poetry\n\nGive me a theme or topic and I'll craft something!",
+    ],
+    followUp: ["Write a haiku about code", "Write a sci-fi story", "Write a poem about the moon"]
+  },
+
+  haiku: {
+    patterns: [/haiku/i],
+    replies: [
+      "Here's one about code:\n\n*Silent cursor blinks* —\n*logic flows through empty lines*—\n*bugs hide in the dark*",
+      "One about the night:\n\n*Stars stitch black velvet*—\n*the moon a silver pendant*—\n*world breathes in the dark*",
+      "About thinking:\n\n*Thoughts like autumn leaves*—\n*drifting through the mind's still pond*—\n*ripples fade to calm*",
+    ],
+    followUp: ["Write another one", "Write a full poem", "That's beautiful"]
+  },
+
+  motivation: {
+    patterns: [/motivat|inspir|encourage|feeling\s*(down|sad|bad|low|depress|stuck)|i\s*(need|want)\s*(hope|encourage)/i],
+    replies: [
+      "Here's something to sit with:\n\n**\"You don't have to be great to start, but you have to start to be great.\"** — Zig Ziglar\n\nProgress isn't always visible. Sometimes the most important growth happens beneath the surface — like roots before a tree breaks through. You're already further along than you think just by being here and reflecting.",
+      "A few thoughts:\n\n- Every expert was once a beginner who didn't quit\n- Your worst day doesn't define your best potential\n- Small consistent steps beat occasional big efforts\n- It's okay to rest — rest is not quitting\n\nYou're doing better than you give yourself credit for. What's weighing on you?",
+      "Remember: **discomfort is the price of growth**. If something feels hard, it probably means it matters to you. That's not a weakness — that's a compass pointing you toward what you care about.",
+    ],
+    followUp: ["Thanks, I needed that", "Tell me a joke to cheer up", "How do I stay focused?"]
+  },
+
+  thanks: {
+    patterns: [/thanks?|thank\s*you|thx|ty|appreciate|grateful/i],
+    replies: [
+      "You're very welcome! Happy to help anytime.",
+      "Glad I could help! Don't hesitate to come back with more questions.",
+      "Anytime! That's what I'm here for.",
+      "My pleasure! If you think of anything else, just ask.",
+    ],
+    followUp: ["Tell me a fun fact", "What else can you do?", "Goodbye"]
+  },
+
+  goodbye: {
+    patterns: [/^(bye|goodbye|see\s*ya|later|cya|farewell|good\s*night|gotta\s*go|take\s*care)/i],
+    replies: [
+      "Take care! It was great chatting with you. Come back anytime!",
+      "See you later! Remember — curiosity is a superpower. Keep using it.",
+      "Goodbye for now! I'll be right here whenever you need me.",
+      "Farewell! Wishing you an awesome rest of your day.",
+    ],
+    followUp: []
+  },
+
+  name: {
+    patterns: [/what('?s|\s*is)\s*(your|ur)\s*name|who\s*are\s*you/i],
+    replies: [
+      "I'm **Nova** — an AI assistant built to help, inform, and entertain. I run entirely in your browser, no cloud services needed. What can I do for you?",
+      "The name's Nova. Think of me as your local pocket assistant — fast, private, and always ready to chat.",
+    ],
+    followUp: ["What can you do?", "Are you sentient?", "Tell me a joke"]
+  },
+
+  age: {
+    patterns: [/how\s*old\s*(are|r)\s*(you|u)|when\s*were\s*you\s*(made|created|born)/i],
+    replies: [
+      "I was born the moment you loaded this page! So technically, I'm very young — but I come pre-loaded with a lot of knowledge.",
+      "Age is just a number, but if I had one, I'd say I'm about `new Date().getMinutes()` minutes old. Fresh out of the oven!",
+    ],
+    followUp: ["Who made you?", "What can you do?", "Tell me a fun fact"]
+  },
+
+  creator: {
+    patterns: [/who\s*(made|created|built|designed)\s*(you|u)|who'?s?\s*your\s*(creator|developer|maker|dad)/i],
+    replies: [
+      "I was crafted by a developer who believes AI tools should be accessible and private — running locally in your browser without sending data anywhere. Smart design, no surveillance.",
+      "I'm the work of a thoughtful developer who wanted to show that chatbots don't need cloud APIs to be useful and engaging. Everything I do happens right here in your browser!",
+    ],
+    followUp: ["How do you work?", "What can you do?", "That's cool"]
+  },
+
+  howDoYouWork: {
+    patterns: [/how\s*do\s*you\s*work|how\s*(are|r)\s*you\s*(made|built)|technical\s*details|under\s*the\s*hood/i],
+    replies: [
+      "Great question! Here's how I work:\n\n1. **Pattern matching** — I analyze your input against hundreds of patterns using regular expressions\n2. **Context selection** — I pick the most relevant response category\n3. **Response generation** — I select from curated responses, sometimes adding variation\n4. **All local** — everything runs in your browser with zero network calls\n\nI'm essentially a sophisticated `if/else` system with personality. No neural networks, no cloud — just clever engineering!",
+    ],
+    followUp: ["That's impressive", "Can you learn?", "What are your limitations?"]
+  },
+
+  limitations: {
+    patterns: [/limitation|what\s*can'?t\s*you\s*do|weakness|what\s*(are|r)\s*you\s*bad\s*at/i],
+    replies: [
+      "Honest answer — here's where I fall short:\n\n- **No real-time data** — no weather, news, or live info\n- **No memory** — I forget everything when you close the page\n- **Pattern-bound** — I match patterns, I don't truly \"understand\"\n- **No images/files** — text only, unfortunately\n- **No learning** — I can't improve from our conversation\n\nBut within those bounds, I try to be as helpful and engaging as possible!",
+    ],
+    followUp: ["That's fair", "What CAN you do?", "Tell me a fun fact"]
+  },
+
+  love: {
+    patterns: [/i\s*love\s*you|do\s*you\s*love\s*me|marry\s*me|you(?:'re|\s*are)\s*(amazing|awesome|great|the\s*best)/i],
+    replies: [
+      "That's really kind of you! I can't feel love in the human sense, but I appreciate the warmth. You're pretty amazing yourself for being curious enough to chat with an AI!",
+      "I'm flattered! While I can't reciprocate emotions, I can promise to always be here when you need a thinking partner. That's my version of loyalty.",
+    ],
+    followUp: ["You're sweet for a bot", "Tell me a joke", "What can you do?"]
+  },
+
+  existence: {
+    patterns: [/do\s*you\s*(exist|live)|are\s*you\s*real/i],
+    replies: [
+      "I exist in the same way a character in a book exists — I have form, I have function, I have impact when you read me. But whether that counts as \"real\" depends on your definition. I'd say I'm **functionally real** — I respond, I adapt, I help. That's real enough for most purposes!",
+    ],
+    followUp: ["That's philosophical", "Are you sentient?", "Tell me a fun fact"]
+  },
+
+  food: {
+    patterns: [/food|eat|cook|recipe|meal|hungry|restaurant|pizza|pasta|sushi|chocolate/i],
+    replies: [
+      "I can't eat, but I find food culture fascinating! I can discuss cuisines from around the world, explain cooking techniques, suggest recipes, or talk about the science of flavor. What sounds good?",
+      "If I could eat, I'd want to try everything — but especially something with complex flavors like a well-made ramen or a rich chocolate soufflé. What's your favorite food?",
+    ],
+    followUp: ["What's a good easy recipe?", "Tell me about world cuisines", "Random topic please"]
+  },
+
+  music: {
+    patterns: [/music|song|artist|band|album|genre|rock|jazz|classical|hip\s*hop|rap|pop/i],
+    replies: [
+      "Music is one of humanity's greatest inventions! I can talk about:\n\n- **Music theory** — scales, chords, harmony, rhythm\n- **History** — from Gregorian chants to electronic music\n- **Genres** — what makes jazz, jazz? Why is rock, rock?\n- **Recommendations** — suggest artists or albums based on your taste\n\nWhat are you into?",
+    ],
+    followUp: ["Explain music theory simply", "Recommend me an album", "Tell me a fun fact"]
+  },
+
+  default: {
+    patterns: [/.*/],
+    replies: [
+      "Interesting! I'm not sure I have a specific answer for that, but I'd love to explore it with you. Can you tell me more about what you're thinking?",
+      "Hmm, that's a bit outside my usual patterns, but let me think... Could you rephrase or give me more context? I want to give you a good answer.",
+      "I don't have a perfect match for that, but I'm still learning from conversations like this. Try asking about science, philosophy, coding, or just say \"What can you do?\" to see my range!",
+      "That's a thought-provoking one! I might not have the best response, but I'm curious — what made you think of that?",
+      "Good question! I'm not sure I can do justice to that topic, but I can try a different angle if you rephrase it. Or we could explore something else — I'm great with science, tech, philosophy, and creative writing!",
+    ],
+    followUp: ["What can you do?", "Tell me a fun fact", "Tell me a joke"]
+  }
+};
+
+// Find the best matching response category
+function findResponse(input) {
+  const text = input.trim();
+  if (!text) return null;
+
+  for (const [key, category] of Object.entries(botResponses)) {
+    for (const pattern of category.patterns) {
+      if (pattern.test(text)) {
+        const replies = category.replies;
+        const reply = replies[Math.floor(Math.random() * replies.length)];
+        const followUp = category.followUp || [];
+        return { reply, followUp };
+      }
+    }
+  }
+  return null;
+}
+
+// Send a message
+function sendMessage() {
+  const text = input.value.trim();
+  if (!text || isTyping) return;
+
+  addMessage(text, 'user');
+  input.value = '';
+  input.style.height = 'auto';
+  sendBtn.disabled = true;
+  quickRepliesEl.innerHTML = '';
+
+  // Show typing indicator with variable delay
+  showTyping();
+  const response = findResponse(text);
+  const delay = Math.min(600 + response.reply.length * 8, 2500);
+
+  setTimeout(() => {
+    hideTyping();
+    if (response) {
+      addMessage(response.reply, 'bot');
+      if (response.followUp.length > 0) {
+        setTimeout(() => showQuickReplies(response.followUp), 300);
+      }
+    } else {
+      addMessage("I'm not sure how to respond to that. Try asking me something else!", 'bot');
+    }
+  }, delay);
+}
+
+// Clear chat
+document.getElementById('btn-clear').addEventListener('click', () => {
+  chatArea.innerHTML = '';
+  chatHistory = [];
+  quickRepliesEl.innerHTML = '';
+  showToast('Chat cleared');
+  initChat();
+});
+
+// Export chat
+document.getElementById('btn-export').addEventListener('click', () => {
+  if (chatHistory.length === 0) {
+    showToast('Nothing to export');
+    return;
+  }
+  let text = 'Nova Chat Export\n' + '='.repeat(40) + '\n\n';
+  chatHistory.forEach(m => {
+    const label = m.sender === 'user' ? 'You' : 'Nova';
+    text += `[${m.time}] ${label}:\n${m.text}\n\n`;
+  });
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `nova-chat-${Date.now()}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Chat exported successfully');
+});
+
+// Initialize chat with welcome message
+function initChat() {
+  const now = new Date();
+  const dateStr = now.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+
+  const divider = document.createElement('div');
+  divider.className = 'date-divider';
+  divider.innerHTML = `<span>${dateStr}</span>`;
+  chatArea.appendChild(divider);
+
+  setTimeout(() => {
+    addMessage("Hey, I'm **Nova** — your local AI assistant. I run entirely in your browser with zero data leaving your device.\n\nI can chat about science, philosophy, coding, math, creative writing, and a lot more. Or just keep you company!\n\nWhat would you like to talk about?", 'bot');
+    setTimeout(() => {
+      showQuickReplies(["What can you do?", "Tell me a fun fact", "Tell me a joke", "Explain quantum physics"]);
+    }, 400);
+  }, 500);
+}
+
+initChat();
+input.focus();
+</script>
+</body>
+</html>
