@@ -432,9 +432,9 @@
             <div style="padding:18px 16px 14px; border-bottom:1px solid var(--border);">
                 <div style="display:flex; align-items:center; justify-content:space-between;">
                     <div style="display:flex; align-items:center; gap:10px;">
-                        <div style="width:32px; height:32px; background:linear-gradient(135deg,var(--accent),#F0A030); border-radius:8px; display:flex; align-items:center; justify-content:center;">
-                            <i class="fas fa-bolt" style="color:#fff; font-size:13px;"></i>
-                        </div>
+                        <div style="width:32px; height:32px; background:linear-gradient(135deg,var(--accent),#F0A030); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                <img src="favicon.png" alt="NxElite Logo" style="width:24px; height:24px; object-fit:contain;">
+            </div>
                         <span style="font-size:1.15rem; font-weight:700; letter-spacing:-0.5px;">NxElite</span>
                     </div>
                     <button class="icon-btn" onclick="toggleSidebar()" aria-label="Close sidebar">
@@ -858,9 +858,10 @@
                     const errBorder = m.isError ? 'border-color:rgba(239,68,68,0.35);' : '';
                     html += `
                         <div class="message message-ai" style="display:flex; gap:10px; align-items:flex-start;">
-                            <div style="width:30px; height:30px; background:linear-gradient(135deg,var(--accent),#F0A030); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px;">
-                                <i class="fas fa-bolt" style="color:#fff; font-size:11px;"></i>
-                            </div>
+    <div style="width:30px; height:30px; background:linear-gradient(135deg,var(--accent),#F0A030); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; overflow:hidden;">
+        <img src="favicon.png" alt="NxElite Logo" style="width:20px; height:20px; object-fit:contain;">
+    </div>
+</div>
                             <div style="flex:1; min-width:0;">
                                 <div class="bubble" style="${errBorder}">${renderMd(m.content)}</div>
                                 <div style="display:flex; align-items:center; gap:8px; margin-top:4px; padding-left:2px;">
@@ -888,9 +889,9 @@
             el.className = 'message message-ai';
             el.style.cssText = 'display:flex; gap:10px; align-items:flex-start;';
             el.innerHTML = `
-                <div style="width:30px; height:30px; background:linear-gradient(135deg,var(--accent),#F0A030); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px;">
-                    <i class="fas fa-bolt" style="color:#fff; font-size:11px;"></i>
-                </div>
+                <div style="width:30px; height:30px; background:linear-gradient(135deg,var(--accent),#F0A030); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; overflow:hidden;">
+    <img src="favicon.png" alt="NxElite Logo" style="width:20px; height:20px; object-fit:contain;">
+</div>
                 <div class="bubble" style="background:var(--ai-bg); border:1px solid var(--border);">
                     <div class="typing-dots"><span></span><span></span><span></span></div>
                 </div>`;
